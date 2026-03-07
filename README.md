@@ -121,6 +121,7 @@ cd docs
 quarto render
 
 ## Repository Structure
+
 nags_signaling/
 ├── README.md
 ├── nags_signaling.Rproj
