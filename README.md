@@ -16,7 +16,7 @@ This repository consolidates research on autocratic use of non-state armed group
 
 - **Paper 3** ("Non-State Armed Groups as Signals of Resolve to Domestic Opposition") builds on this by examining the dual role of highly visible NAG support: while primarily signaling to supporters, it also projects resolve to domestic opponents, improving survival odds—but with rational limits to avoid excessive external risks (e.g., targeting powerful democracies).
 
-Both papers use an integrated GRAVE-D dyadic framework (state A support for NAGs targeting state B), drawing on the Non-State Armed Groups Database (via Dyadic Target-Supporter Dataset) merged into GRAVE-D. They emphasize revisionist ideology (not transformative) and domestic coalition dynamics over purely strategic or charismatic explanations.
+Both papers use an integrated GRAVE-D dyadic framework (state A support for NAGs targeting state B), drawing on the Non-State Armed Groups Database (via Dyadic Target-Supporter Dataset) merged into GRAVE-D. They emphasize revisionist ideology and domestic coalition dynamics over purely strategic or charismatic explanations.
 
 ---
 
