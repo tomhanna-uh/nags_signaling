@@ -32,44 +32,52 @@ This project tests the **Rational Autocrat** hypothesis against the competing **
 
 ## Theoretical Framework
 
-Three ideal types structure the theory (consistent with Paper 1):
+Three ideal types structure the analysis of autocratic support for non-state armed groups (NAGs). The framework treats **revisionist leadership ideology** as the core driver of the empirical pattern: higher revisionism predicts greater NAG support, ideological alignment with supported groups, and targeting of rivals (e.g., democracies). This baseline pattern is labeled **Ideological Autocrat** and is the shared starting point across explanations.
 
-| Type                  | Core Claim                                      | Key Mechanism                          |
-|-----------------------|-------------------------------------------------|----------------------------------------|
-| **The Ideological Autocrat** | Leadership ideology drives support as direct preference expression | Direct ideological goals               |
-| **The Rational Autocrat**    | Support group ideology drives NAG support as costly signal | Coalition loyalty maintenance via nonmaterial payoffs |
-| **The Messianic Autocrat**   | Dynamic personal leadership drives support     | Leader charisma / personal drive       |
+The two explanatory subtypes then compete to account for *why* this pattern emerges:
 
-The **Rational Autocrat** argument is the primary theoretical contribution: NAG support serves as an instrumental, low-cost (relative to direct conflict) signal to ideological supporters, tested against the alternatives.
+| Type                        | Core Claim                                                                 | Key Mechanism / Explanation                                                                 |
+|-----------------------------|----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| **The Ideological Autocrat** (Baseline) | Revisionist leadership ideology predicts NAG support, alignment, and targeting of ideological rivals. | This is the core empirical baseline pattern observed across autocracies; it does not specify the underlying driver and serves as the foundation that both explanatory types seek to explain. |
+| **The Rational Autocrat** (Primary Explanation) | The baseline pattern arises because rational leaders instrumentally use NAG support as a costly, visible signal of revisionist commitment to their domestic ideological winning coalitions. | Coalition loyalty maintenance via nonmaterial payoffs: visible support satisfies revisionist supporters, enhances legitimation, and boosts leader survival—independent of personal normative zeal. |
+| **The Messianic Autocrat** (Competing Alternative) | The baseline pattern arises because dynamic, charismatic leaders personally pursue revisionist normative goals abroad. | Leader charisma / personal drive: support for NAGs reflects the leader's own ideological preferences and boldness, rather than calculated coalition signaling. |
 
----
+The project argues that the **Rational Autocrat** mechanism best explains the data: NAG support functions as a low-cost (relative to direct interstate conflict) ideological signal to winning coalitions, accounting for patterns not fully captured by strategic motives alone. The Ideological Autocrat hypotheses establish the baseline association, while Rational and Messianic hypotheses test competing mechanisms through interactions, mediation, moderation, and survival outcomes.
 
 ## Hypotheses
 
-Hypotheses are organized in tiers from simplest (main effects) to complex (mechanisms/outcomes). Full details in analysis scripts and Quarto documents.
+Hypotheses are organized in tiers from simplest (establishing the baseline pattern) to more complex (testing explanatory mechanisms and outcomes). All apply among autocracies and use dyadic GRAVE-D structure (Side A support for NAGs targeting Side B).
 
-### Tier 1 — Simple Models (Support Count/Probability)
+### Tier 1 — Simple Models (Baseline Pattern: Support Count/Probability)
 
-- **H1** The Ideological Autocrat — Support Count  
-- **H2** The Rational Autocrat — Support Count  
-- **H3** The Messianic Autocrat — Support Count  
+| Label | Substantive Name                          | Statement                                                                                          | Tests Which Type?          |
+|-------|-------------------------------------------|----------------------------------------------------------------------------------------------------|----------------------------|
+| **H1** | Ideological Revisionism — Support Count   | Among autocracies, higher revisionist leadership ideology (`sidea_revisionist_domestic` or subtypes) increases support for NAGs targeting the other state in the dyad. | Baseline (Ideological Autocrat pattern) |
+| **H2** | Rational Signaling — Support Count        | Among autocracies, higher support from revisionist groups (e.g., `sidea_religious_support`) increases NAG support targeting the other state in the dyad as signaling to coalitions. | Rational Autocrat explanation |
+| **H3** | Messianic Drive — Support Count           | Among autocracies, higher personalist legitimation (`v2exl_legitlead_a` or `sidea_dynamic_leader`) increases NAG support targeting the other state in the dyad. | Messianic Autocrat explanation |
 
-### Tier 2 — Alignment and Legitimation Mix (Dyadic)
+### Tier 2 — Alignment and Legitimation Mix (Dyadic: Refining the Baseline and Mechanisms)
 
-- **H4** The Ideological Autocrat — Ideological Alignment  
-- **H5** The Ideological Autocrat — Autocratic Alignment  
-- **H6** The Ideological Autocrat — Targeting Democracies  
-- **H7** Legitimation Mix — Support Count  
-- **H11** Ideological Mismatch Penalty  
-- **H12** Bandwidth as Signal Amplifier  
+| Label | Substantive Name                  | Statement                                                                                          | Tests Which Type?          |
+|-------|-----------------------------------|----------------------------------------------------------------------------------------------------|----------------------------|
+| **H4** | Revisionist Alignment             | Among autocracies, higher revisionist ideology boosts support for ideologically congruent NAGs targeting the other state in the dyad (subtype match in NAG data). | Baseline pattern           |
+| **H5** | Autocratic Goals Alignment        | Among autocracies, higher revisionist ideology boosts support for NAGs seeking autocracy in the target state (per NAG objectives). | Baseline pattern           |
+| **H6** | Targeting Democracies             | Among autocracies, higher revisionist ideology boosts support for NAGs targeting democracies in the dyad (`v2x_polyarchy_b`). | Baseline pattern           |
+| **H7** | Legitimation Trade-offs           | Among autocracies, higher ideological legitimation ratio (`v2exl_legitideol_a`) increases NAG support targeting the other state in the dyad, while personalist reduces it. | Rational vs. Messianic     |
+| **H11**| Ideological Mismatch Penalty      | Among autocracies, ideological mismatch (Side A subtype vs. NAG ideology) decreases support probability for NAGs targeting the other state in the dyad. | Rational explanation (signal credibility) |
+| **H12**| Visibility Amplifier              | Among autocracies, revisionist states prefer NAG support in high-bandwidth dyads (FBIC measures) for stronger signaling. | Rational explanation       |
 
-### Tier 3 — Mediation, Moderation, and Survival
+### Tier 3 — Mediation, Moderation, and Survival (Mechanisms and Outcomes)
 
-- **H8** Moderation — Dynamic Leadership  
-- **H9** Mediation — Support Groups  
-- **H10** Survival Mediation  
-- **H13** Regime Age Moderation  
-- **H14** Risk-Averse Targeting  
+| Label | Substantive Name              | Statement                                                                                          | Tests Which Type?          |
+|-------|-------------------------------|----------------------------------------------------------------------------------------------------|----------------------------|
+| **H8** | Leadership Moderation         | Among autocracies, dynamic leadership (`sidea_dynamic_leader`) amplifies revisionism's effect on NAG support. | Messianic explanation      |
+| **H9** | Support Group Mediation       | Among autocracies, revisionist ideology's effect on aligned NAG support is mediated by ideological support groups. | Rational explanation       |
+| **H10**| Survival Via Signaling        | Among autocracies, aligned NAG support boosts leader survival via ideological legitimation (mediated: support → `v2exl_legitideol_a` → survival). | Rational explanation       |
+| **H13**| Regime Age Moderation         | Among autocracies, revisionism's effect on NAG support is stronger in new regimes (low `reg_trans_a`) for coalition consolidation. | Rational explanation       |
+| **H14**| Risk Balancing                | Among autocracies, revisionist states avoid NAG support targeting powerful states in the dyad (`cinc_b` interaction) to limit retaliation risks. | Rational explanation (bounded signaling) |
+
+---
 
 *(Paper 3 hypotheses focus on opposition signaling, resolve projection, and risk limits; detailed in dedicated scripts.)*
 
