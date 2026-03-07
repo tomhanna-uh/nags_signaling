@@ -75,4 +75,43 @@ Hypotheses are organized in tiers from simplest (main effects) to complex (mecha
 
 ---
 
+
+
+
+
+
+
+---
+
+## Data
+
+Primary dataset: **GRAVE_D_Master_with_Leaders.csv** (dyad-year, 1946–2020), augmented with NAG support variables (Side A support for groups targeting Side B) from the Dyadic Target-Supporter Dataset / Non-State Armed Groups Database.
+
+Key sources:
+- GRAVE-D: Ideology (`sidea_revisionist_domestic`, subtypes), support groups (`sidea_religious_support` etc.), legitimation (V-Dem `v2exl_legitideol_a` etc.), FBIC connectivity.
+- NAG integration: Binary/count support, group ideology/objectives, targets (e.g., democracies).
+- Other: COW CINC, MIDs (for risk proxies), leader tenure.
+
+Data files gitignored; place in `data/` before running.
+
+---
+
+## Running the Analysis
+
+```r
+# Install/load packages
+source("R/00_packages.R")
+
+# Load/prep (includes NAG merge)
+source("R/01_load_data.R")
+source("R/02_data_prep.R")
+
+# Run models by tier/paper
+source("R/03_h1_h3_count.R")     # Tier 1
+source("R/04_h4_h7_alignment.R") # Tier 2
+source("R/05_h8_h14_mechanisms.R") # Tier 3 + Paper 3
+
+# Tables
+source("R/06_reporting_tables.R")
+
 ## Repository Structure
