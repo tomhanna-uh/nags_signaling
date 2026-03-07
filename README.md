@@ -128,14 +128,20 @@ nags_signaling/
 ├── .gitignore
 ├── data/                          # gitignored — place GRAVE-D and NAG-derived files here
 │   └── GRAVE_D_Master_with_Leaders.csv  # plus NAG support merges
-├── R/
-│   ├── 00_packages.R
+R/
+├── paper2/                # New subfolder for core signaling (supporters)
+│   ├── 03_h1_h3_count.R
+│   ├── 04_h4_h7_alignment.R
+│   └── ... (Tier 1-2 mostly)
+├── paper3/                # For opposition/resolve extensions
+│   ├── 07_h10_survival_dual.R   # e.g., H10 + opposition mods
+│   └── 08_h14_risk_opposition.R
+├── shared/                # Common across both
 │   ├── 01_load_data.R
-│   ├── 02_data_prep.R             # Merges NAG support into GRAVE-D dyads
-│   ├── 03_h1_h3_count.R           # Tier 1 negative binomial/logit
-│   ├── 04_h4_h7_alignment.R       # Tier 2 dyadic logistic
-│   ├── 05_h8_h14_mechanisms.R     # Tier 3 mediation/moderation/survival
-│   └── 06_reporting_tables.R      # modelsummary/stargazer output
+│   ├── 02_data_prep.R
+│   ├── 05_h8_h14_mechanisms.R   # Core mediation/survival shared
+│   └── 06_reporting_tables.R
+└── 00_packages.R
 └── docs/
 ├── _quarto.yml
 ├── theory.qmd                 # Combined theory chapter
