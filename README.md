@@ -146,8 +146,10 @@ nags_signaling/
 
 ## Related Repositories
 
-Paper 1: Autocracy, Conflict, and Ideological Signaling (or equivalent) — MIDs-focused signaling. https://github.com/tomhanna-uh/autocracy_conflict_signaling
-GRAVE-D Data: grave_d_data2026 — Master dataset assembly. https://github.com/tomhanna-uh/grave_d_data2026
+## Related Repositories
+
+- Paper 1: [Autocracy, Conflict, and Ideological Signaling](https://github.com/tomhanna-uh/autocracy_conflict_signaling) (or equivalent) — MIDs-focused signaling.
+- GRAVE-D Data: [grave_d_data2026](https://github.com/tomhanna-uh/grave_d_data2026) — Master dataset assembly.
 
 ## Citation
 Hanna, Tom. Non-State Armed Groups and Ideological Signaling. Working manuscript, University of Houston, 2026.
