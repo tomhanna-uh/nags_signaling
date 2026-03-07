@@ -114,4 +114,41 @@ source("R/05_h8_h14_mechanisms.R") # Tier 3 + Paper 3
 # Tables
 source("R/06_reporting_tables.R")
 
+
+## To render the manuscript
+
+cd docs
+quarto render
+
 ## Repository Structure
+nags_signaling/
+├── README.md
+├── nags_signaling.Rproj
+├── .gitignore
+├── data/                          # gitignored — place GRAVE-D and NAG-derived files here
+│   └── GRAVE_D_Master_with_Leaders.csv  # plus NAG support merges
+├── R/
+│   ├── 00_packages.R
+│   ├── 01_load_data.R
+│   ├── 02_data_prep.R             # Merges NAG support into GRAVE-D dyads
+│   ├── 03_h1_h3_count.R           # Tier 1 negative binomial/logit
+│   ├── 04_h4_h7_alignment.R       # Tier 2 dyadic logistic
+│   ├── 05_h8_h14_mechanisms.R     # Tier 3 mediation/moderation/survival
+│   └── 06_reporting_tables.R      # modelsummary/stargazer output
+└── docs/
+├── _quarto.yml
+├── theory.qmd                 # Combined theory chapter
+├── data_methods.qmd           # GRAVE-D + NAG integration
+├── results_paper2.qmd         # Paper 2 results
+├── results_paper3.qmd         # Paper 3 results
+└── appendix.qmd               # Robustness, descriptives
+
+## Related Repositories
+
+Paper 1: Autocracy, Conflict, and Ideological Signaling (or equivalent) — MIDs-focused signaling. https://github.com/tomhanna-uh/autocracy_conflict_signaling
+GRAVE-D Data: grave_d_data2026 — Master dataset assembly. https://github.com/tomhanna-uh/grave_d_data2026
+
+## Citation
+Hanna, Tom. Non-State Armed Groups and Ideological Signaling. Working manuscript, University of Houston, 2026.
+
+Note: References based on current drafts; full bibliography in Quarto docs.
