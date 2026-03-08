@@ -34,7 +34,7 @@ Why do autocratic regimes provide visible support to foreign non-state armed gro
 
 However, leaders act with bounded rationality: as opposition grows, they increase overall NAG support but strategically avoid (or reduce) backing groups that target democracies, thereby limiting the probability of severe retaliation from powerful states or their allies. This trade-off balances domestic credibility against external costs.
 
-Using dyadic data from the GRAVE-D framework and the Dangerous Companions Dyadic Target-Supporter Dataset, the analysis employs logistic regression and multi-stage probit/control-function methods (Wooldridge-style) to address endogeneity between opposition size and regime behavior. Results confirm the positive effect of opposition on NAG support, the strategic avoidance of democracy-targeting groups, and the survival benefits of this bounded signaling strategy. These findings extend the logic of autocratic coalition management beyond material payoffs, showing how revisionist pressures shape foreign policy as a tool for domestic political survival.
+Using dyadic data from the GRAVE-D framework and the Dangerous Companions Dyadic Target-Supporter Dataset, the analysis employs logistic regression and multi-stage probit/control-function methods to address endogeneity between opposition size and regime behavior. Results confirm the positive effect of opposition on NAG support, the strategic avoidance of democracy-targeting groups, and the survival benefits of this bounded signaling strategy. These findings extend the logic of autocratic coalition management beyond material payoffs, showing how revisionist pressures shape foreign policy as a tool for domestic political survival.
 
 
 ---
