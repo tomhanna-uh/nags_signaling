@@ -38,7 +38,8 @@ here::i_am("R/shared/01_load_data.R")
 # etc. – assume already loaded via sourcing 00_packages.R
 
 # Define project-relative paths
-data_path <- here::here("data", "GRAVE_D_Master_with_Leaders.csv")
+
+data_path <- here("source_data","GRAVE_D_Master_with_Leaders.csv")
 
 # Confirm project root and file location (helpful for Posit Cloud debugging)
 message("Project root detected as: ", here::here())
@@ -73,6 +74,26 @@ df_raw <- readr::read_csv(
   ),
   na = c("", "NA", -99, -999)  # Common missing value codes in V-Dem/GRAVE-D
 )
+
+# After loading df_raw
+df_raw <- df_raw %>%
+  mutate(
+    nags_targets_democracy = case_when(
+      nags_support_count > 0 & targets_democracy == 1 ~ 1L,   # Support exists + B is democracy
+      nags_support_count == 0 ~ 0L,                           # No support
+      TRUE ~ 0L                                               # Support but B not democracy
+    )
+  )
+
+# Then the summary will work
+summary(df_raw %>% 
+          dplyr::select(
+            year,
+            sidea_revisionist_domestic,
+            v2exl_legitideol_a,
+            nags_support_count,
+            nags_targets_democracy
+          ))
 
 # Basic sanity checks
 message("Dataset dimensions: ", paste(dim(df_raw), collapse = " x "))

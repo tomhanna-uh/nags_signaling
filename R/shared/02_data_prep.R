@@ -54,29 +54,25 @@ message("Filtered to autocracies: ", nrow(df_prep), " rows remaining")
 # Step 2: Derive simplified variables for analysis (revisionism, legit ratios, etc.)
 df_prep <- df_prep %>%
   mutate(
-    # Binary high-revisionist indicator (above median for quick subgroup analysis)
+    # Binary high-revisionist indicator
     revisionist_high = if_else(
       sidea_revisionist_domestic > median(sidea_revisionist_domestic, na.rm = TRUE),
       1L,
       0L
     ),
     
-    # Ideological legitimation ratio (ideology vs. performance/personalist)
+    # Ideological legitimation ratio
     ideol_legit_ratio = v2exl_legitideol_a / 
-      (v2exl_legitideol_a + v2exl_legitlead_a + v2exl_legitperf_a + 1e-6),  # Avoid div-by-zero
+      (v2exl_legitideol_a + v2exl_legitlead_a + v2exl_legitperf_a + 1e-6),
     
-    # Risk proxy for H14 (powerful target interaction)
+    # Risk proxy
     risk_powerful_target = cinc_b * revisionist_high,
     
-    # Dyad identifier for fixed effects/panel models
+    # Dyad ID
     dyad_id = as.factor(paste(COWcode_a, COWcode_b, sep = "_")),
     
-    # Regime age category (for H13 moderation)
-    regime_new = if_else(reg_trans_a < 5, 1L, 0L),  # e.g., <5 years since transition
-    
-    # Optional: Subtype-specific revisionism (uncomment if testing separately)
-    # socialist_revisionist_high = if_else(sidea_socialist_revisionist_domestic > 0.5, 1L, 0L),
-    # religious_revisionist_high = if_else(sidea_religious_revisionist_domestic > 0.5, 1L, 0L)
+    # Regime newness proxy (use leader tenure if available, fallback to 0)
+    regime_new = if_else(tenure < 5, 1L, 0L)  # <-- safe replacement
   )
 
 # Step 3: Imputation (following GRAVE-D codebook protocol: linear within A-year, then regional-year median)
@@ -95,18 +91,48 @@ df_prep <- df_prep %>%
   )) %>%
   ungroup()
 
-# Step 4: Final checks and warnings
+# Step 4: Derive missing NAG variables and final checks
+# Derive nags_ideology_match using revisionism_distance and subtypes
+df_prep <- df_prep %>%
+  mutate(
+    # Continuous match: lower distance = better ideological match (0–1 scale if normalized)
+    nags_ideology_match_cont = case_when(
+      nags_support_count > 0 ~ 1 - revisionism_distance,  # invert distance (assuming 0–1 scale)
+      TRUE ~ 0
+    ),
+    
+    # Binary match: high-revisionist state + any support = presumed match
+    nags_ideology_match = case_when(
+      nags_support_count > 0 & revisionist_high == 1 ~ 1L,
+      nags_support_count > 0 & !is.na(revisionism_distance) & revisionism_distance < 0.5 ~ 1L,  # threshold example
+      TRUE ~ 0L
+    ),
+    
+    # Optional: subtype-specific match flags (uncomment if you later add NAG subtypes)
+    # nags_socialist_match = if_else(nags_support_count > 0 & sidea_socialist_revisionist_domestic > 0.5, 1L, 0L),
+    # nags_religious_match  = if_else(nags_support_count > 0 & sidea_religious_revisionist_domestic > 0.5, 1L, 0L),
+    
+    # nags_targets_democracy (already suggested earlier, repeated for completeness)
+    nags_targets_democracy = case_when(
+      nags_support_count > 0 & targets_democracy == 1 ~ 1L,
+      TRUE ~ 0L
+    )
+  )
 message("Post-prep dimensions: ", paste(dim(df_prep), collapse = " x "))
-message("Missing values in key vars after imputation:")
-summary(df_prep %>% select(
-  sidea_revisionist_domestic, revisionist_high, ideol_legit_ratio,
-  nags_support_count, nags_ideology_match, nags_targets_democracy
-))
 
-if (any(is.na(df_prep$revisionist_high))) {
-  warning("Some revisionist_high values still NA after imputation – check structural missing.")
+df_prep %>%
+  summarise(across(
+    c(sidea_revisionist_domestic, revisionist_high, ideol_legit_ratio,
+      nags_support_count, nags_ideology_match, nags_targets_democracy,
+      nags_training, nags_arms, nags_funds),
+    list(n_missing = ~sum(is.na(.)), mean = ~mean(., na.rm = TRUE), median = ~median(., na.rm = TRUE))
+  )) %>%
+  print()
+
+# Warning if key vars still missing
+if (any(is.na(df_prep$nags_targets_democracy))) {
+  warning("Some nags_targets_democracy values NA – check support and target regime data.")
 }
-
 # Step 5: Assign prepared data globally for downstream scripts
 assign("df_prep", df_prep, envir = .GlobalEnv)
 
