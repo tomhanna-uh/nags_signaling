@@ -152,16 +152,23 @@ Endogeneity between opposition size and NAG support is addressed using instrumen
 ---
 
 ## Data
+Primary: `GRAVE_D_Master_with_Leaders_nags_signals.rds` (from grave_d_data2026 pipeline, now including `capital_dist_km` from Gleditsch/Weidmann capitals data, joined to FBIC spine).
 
-Primary dataset: **GRAVE_D_Master_with_Leaders.csv** (dyad-year, 1946–2020), augmented with NAG support variables (Side A support for groups targeting Side B) from the Dyadic Target-Supporter Dataset / Non-State Armed Groups Database.
+**New in 2026 pipeline**:
+- `capital_dist_km` — Static dyadic distance between capitals; transform to `log_capdist = log(capital_dist_km + 1)` for models.
+- Enables visibility/proximity tests in H14 (bandwidth amplification) and extensions (e.g., proximity × opposition interactions).
 
-Key sources:
-- GRAVE-D: Ideology (`sidea_revisionist_domestic`, subtypes), support groups (`sidea_religious_support` etc.), legitimation (V-Dem `v2exl_legitideol_a` etc.), FBIC connectivity.
-- NAG integration: Binary/count support, group ideology/objectives, targets (e.g., democracies).
-- Other: COW CINC, MIDs (for risk proxies), leader tenure.
+**Derived variables** (R/shared/03_derive_signaling_vars.R):
+- `autocracy_a`, `nags_dem_target_support`, `legit_ideol_ratio`, `oppsize_norm`, `high_cost_support`, `low_cost_domestic_support`, `cold_war`, `war_on_terror`, `opposition_training_int`, `bandwidth_visibility`, `log_capdist`, `bandwidth_proximity_int`, `opposition_dem_target_int`.
+These power core hypotheses: H9 mediation, H12–H14 visibility/avoidance, H15–H16 dual signaling/survival.
 
-Data files gitignored; place in `data/` before running.
-
+## Running the analysis
+```r
+source("R/00_packages.R")
+source("R/shared/01_load_data.R")           # now loads updated master with capdist
+source("R/shared/02_data_prep.R")
+source("R/shared/03_derive_signaling_vars.R")  # includes new distance derivations
+# Then run paper2/ and paper3/ model scripts
 ---
 
 ## Running the Analysis
