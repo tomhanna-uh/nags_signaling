@@ -100,7 +100,11 @@ df_prep <- df_prep %>%
   arrange(year) %>%
   mutate(across(
     c(sidea_revisionist_domestic, v2exl_legitideol_a, v2exl_legitlead_a, v2exl_legitperf_a,
+<<<<<<< HEAD
       log_capdist, politicalbandwidth),
+=======
+      oppsize_norm, log_capdist, politicalbandwidth),  # added new vars that may need imputation
+>>>>>>> 2bf586782a16ec28bc962d6c1f437b2c757000b0
     ~ zoo::na.approx(., na.rm = FALSE)
   )) %>%
   # Handle oppsize_norm separately (it's a scaled matrix → extract vector)
@@ -110,6 +114,7 @@ df_prep <- df_prep %>%
   mutate(oppsize_norm = zoo::na.approx(oppsize_norm, na.rm = FALSE)) %>%
   ungroup() %>%
   group_by(unregiona, year) %>%
+<<<<<<< HEAD
   mutate(
     across(
       c(sidea_revisionist_domestic, v2exl_legitideol_a, v2exl_legitlead_a, v2exl_legitperf_a,
@@ -122,6 +127,15 @@ df_prep <- df_prep %>%
   ungroup()
 
 
+=======
+  mutate(across(
+    c(sidea_revisionist_domestic, v2exl_legitideol_a, v2exl_legitlead_a, v2exl_legitperf_a,
+      oppsize_norm, log_capdist, politicalbandwidth),
+    ~ if_else(is.na(.), median(., na.rm = TRUE), .)
+  )) %>%
+  ungroup()
+
+>>>>>>> 2bf586782a16ec28bc962d6c1f437b2c757000b0
 # Step 4: Derive NAG ideology match variables (after imputation so distances are available)
 df_prep <- df_prep %>%
   mutate(
