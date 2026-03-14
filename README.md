@@ -230,14 +230,17 @@ R/
 │   ├── 01_load_data.R
 │   ├── 02_data_prep.R
 │   ├── 03_derive_signaling_vars.R          # All derivations + normalizations
-│   └── 04_trim_and_finalize.R              # Trim, cleanup, save trimmed RDS
+│   ├── 04_trim_and_finalize.R              # Trim, cleanup, save trimmed RDS
+|   ├── 06_helpers.R
+|   ├── 11_h8_h14_mechanism.R
+|   └── 12_reporting_tables.R
 ├── paper2/                                  # Ideological commitment signaling (supporters)
-│   ├── 01_h1_h2_logit.R
-│   ├── 02_h3_h4_count.R
+│   ├── 07_h1_h3_count.R
+│   ├── 08_h7_h8_alignment.R
 │   └── ... (add as needed)
 ├── paper3/                                  # Opposition resolve signaling
-│   ├── 01_h11_h14_logit.R
-│   ├── 02_h15_h16_survival.R
+│   ├── 09_h10_survival_dual.R
+│   ├── 10_h14_risk_opposition.$
 │   └── ... (add as needed)
 └── models/                                  # Shared or standalone model scripts
 └── paper2_resolve_baseline.R           # Example
