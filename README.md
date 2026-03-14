@@ -10,13 +10,34 @@
 
 ## Overview
 
-This repository consolidates research on autocratic use of non-state armed groups (NAGs) as tools of ideological signaling and autocracy promotion. It combines two closely related dissertation papers (Papers 2 and 3) that extend the signaling framework developed in Paper 1 ("Autocracy, Conflict, and Ideological Signaling"; see separate repository at [https://github.com/tomhanna-uh/autocracy_conflict_signaling](https://github.com/tomhanna-uh/autocracy_conflict_signaling) or equivalent).
+This repository consolidates research on autocratic use of non-state armed groups (NAGs) as tools of ideological signaling and autocracy promotion. It combines two closely related dissertation papers (Papers 2 and 3) that extend the signaling framework developed in Paper 1 ("Autocracy, Conflict, and Ideological Signaling").
 
-- **Paper 2** ("Autocracy, Non-State Armed Groups, and Ideological Signaling") argues that rational autocrats provide support to NAGs as a costly, visible signal of ideological commitment to domestic revisionist support coalitions, enhancing leader survival through nonmaterial payoffs (parallel to material incentives in selectorate theory). It tests the **Rational Autocrat** hypothesis against **Ideological Autocrat** (direct preference) and **Messianic Autocrat** (charismatic drive) alternatives, using dyadic models of support initiation, alignment, and mediation.
+- **Paper 2** ("Autocracy, Non-State Armed Groups, and Ideological Signaling") argues that rational autocrats provide support to NAGs as a costly, visible signal of ideological commitment to domestic revisionist support coalitions, enhancing leader survival through nonmaterial payoffs.
+- **Paper 3** ("Non-State Armed Groups as Signals of Resolve to Domestic Opposition") examines the dual role of highly visible NAG support: signaling to supporters while also projecting resolve to domestic opponents, with rational limits to avoid excessive external risks.
 
-- **Paper 3** ("Non-State Armed Groups as Signals of Resolve to Domestic Opposition") builds on this by examining the dual role of highly visible NAG support: while primarily signaling to supporters, it also projects resolve to domestic opponents, improving survival odds—but with rational limits to avoid excessive external risks (e.g., targeting powerful democracies).
+Both papers use an integrated GRAVE-D dyadic framework (state A support for NAGs targeting state B), drawing on the Non-State Armed Groups Database merged into GRAVE-D 2026.
 
-Both papers use an integrated GRAVE-D dyadic framework (state A support for NAGs targeting state B), drawing on the Non-State Armed Groups Database (via Dyadic Target-Supporter Dataset) merged into GRAVE-D. They emphasize revisionist ideology and domestic coalition dynamics over purely strategic or charismatic explanations.
+---
+
+## Data Pipeline & Processing (Updated March 14, 2026)
+
+Primary dataset: `data/GRAVE_D_Master_with_Leaders_nags_signals_trimmed.rds`  
+~1.13 million dyad-years, trimmed to ~65 columns (after whitelisting and transformations).
+
+**Pipeline flow**:
+1. `R/shared/01_load_data.R` → Loads raw GRAVE-D master (`df_raw`)
+2. `R/shared/02_data_prep.R` → Filters to autocracies, imputes, derives basics (`df_prep`)
+3. `R/shared/03_derive_signaling_vars.R` → Adds signaling interactions, normalizations, logs, winsorizing (main + raw versions for robustness)
+4. `R/shared/04_trim_and_finalize.R` → Applies whitelist trim, aggressive environment cleanup + gc(), saves trimmed RDS
+
+**Key new transformations** (in `03`):
+- `ln_capital_dist_km = log(capital_dist_km + 1)`
+- Normalized versions (`_norm` suffix) for `oppsize_norm`, `revisionist_norm`, `legit_ideol_ratio_norm`, `politicalbandwidth_norm`, `bandwidth_proximity_norm`
+- Winsorized versions (`_wins`, `_cap`) for extreme ratios and proximity
+- Logged CINC (`cinc_a_log`, `cinc_b_log`)
+- Raw versions retained for robustness checks
+
+**Environment cleanup** (in `04`): Removes `df_raw`, `df_prep`, temp objects; keeps `df_final`, functions, configs. Run `gc()` twice for memory release.
 
 ---
 
@@ -201,29 +222,25 @@ nags_signaling/
 ├── README.md
 ├── nags_signaling.Rproj
 ├── .gitignore
-├── data/                          # gitignored — place GRAVE-D and NAG-derived files here
-│   └── GRAVE_D_Master_with_Leaders.csv  # plus NAG support merges
+├── data/                                    # gitignored
+│   └── GRAVE_D_Master_with_Leaders_nags_signals_trimmed.rds
 R/
-├── paper2/                # New subfolder for core signaling (supporters)
-│   ├── 03_h1_h3_count.R
-│   ├── 04_h4_h7_alignment.R
-│   └── ... (Tier 1-2 mostly)
-├── paper3/                # For opposition/resolve extensions
-│   ├── 07_h10_survival_dual.R   # e.g., H10 + opposition mods
-│   └── 08_h14_risk_opposition.R
-├── shared/                # Common across both
+├── shared/                                  # Common pipeline scripts
+│   ├── 00_packages.R
 │   ├── 01_load_data.R
 │   ├── 02_data_prep.R
-│   ├── 05_h8_h14_mechanisms.R   # Core mediation/survival shared
-│   └── 06_reporting_tables.R
-└── 00_packages.R
-└── docs/
-├── _quarto.yml
-├── theory.qmd                 # Combined theory chapter
-├── data_methods.qmd           # GRAVE-D + NAG integration
-├── results_paper2.qmd         # Paper 2 results
-├── results_paper3.qmd         # Paper 3 results
-└── appendix.qmd               # Robustness, descriptives
+│   ├── 03_derive_signaling_vars.R          # All derivations + normalizations
+│   └── 04_trim_and_finalize.R              # Trim, cleanup, save trimmed RDS
+├── paper2/                                  # Ideological commitment signaling (supporters)
+│   ├── 01_h1_h2_logit.R
+│   ├── 02_h3_h4_count.R
+│   └── ... (add as needed)
+├── paper3/                                  # Opposition resolve signaling
+│   ├── 01_h11_h14_logit.R
+│   ├── 02_h15_h16_survival.R
+│   └── ... (add as needed)
+└── models/                                  # Shared or standalone model scripts
+└── paper2_resolve_baseline.R           # Example
 
 ## Related Repositories
 
