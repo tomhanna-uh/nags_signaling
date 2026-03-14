@@ -1,0 +1,176 @@
+summary(df_final)
+   COWcode_a       COWcode_b          year          dyad          
+ Min.   : 31.0   Min.   :  2.0   Min.   :1960   Length:1126609    
+ 1st Qu.:365.0   1st Qu.:230.0   1st Qu.:1981   Class :character  
+ Median :517.0   Median :452.0   Median :1995   Mode  :character  
+ Mean   :492.7   Mean   :463.3   Mean   :1994                     
+ 3rd Qu.:692.0   3rd Qu.:670.0   3rd Qu.:2008                     
+ Max.   :950.0   Max.   :990.0   Max.   :2020                     
+                                                                  
+    dyad_id         unregiona         nags_any_support
+ 130_100:     61   Length:1126609     Min.   :0       
+ 130_101:     61   Class :character   1st Qu.:0       
+ 130_135:     61   Mode  :character   Median :0       
+ 130_140:     61                      Mean   :0       
+ 130_145:     61                      3rd Qu.:0       
+ 130_150:     61                      Max.   :0       
+ (Other):1126243                                      
+ nags_active_support nags_defacto_support nags_support_count
+ Min.   :0           Min.   :0            Min.   :0         
+ 1st Qu.:0           1st Qu.:0            1st Qu.:0         
+ Median :0           Median :0            Median :0         
+ Mean   :0           Mean   :0            Mean   :0         
+ 3rd Qu.:0           3rd Qu.:0            3rd Qu.:0         
+ Max.   :0           Max.   :0            Max.   :0         
+                                                            
+ nags_safe_haven    nags_training        nags_arms       
+ Min.   :0.000000   Min.   :0.000000   Min.   :0.000000  
+ 1st Qu.:0.000000   1st Qu.:0.000000   1st Qu.:0.000000  
+ Median :0.000000   Median :0.000000   Median :0.000000  
+ Mean   :0.001732   Mean   :0.001339   Mean   :0.001542  
+ 3rd Qu.:0.000000   3rd Qu.:0.000000   3rd Qu.:0.000000  
+ Max.   :1.000000   Max.   :1.000000   Max.   :1.000000  
+                                                         
+   nags_funds       nags_troops        high_cost_support
+ Min.   :0.00000   Min.   :0.0000000   Mode :logical    
+ 1st Qu.:0.00000   1st Qu.:0.0000000   FALSE:1124232    
+ Median :0.00000   Median :0.0000000   TRUE :2377       
+ Mean   :0.00122   Mean   :0.0003311                    
+ 3rd Qu.:0.00000   3rd Qu.:0.0000000                    
+ Max.   :1.00000   Max.   :1.0000000                    
+                                                        
+ low_cost_domestic_support nags_dem_target_support
+ Mode :logical             Min.   :0              
+ FALSE:1124040             1st Qu.:0              
+ TRUE :2569                Median :0              
+                           Mean   :0              
+                           3rd Qu.:0              
+                           Max.   :0              
+                                                  
+ nags_targets_democracy opposition_training_int
+ Min.   :0              Min.   :-2.829         
+ 1st Qu.:0              1st Qu.: 0.000         
+ Median :0              Median : 0.000         
+ Mean   :0              Mean   : 0.000         
+ 3rd Qu.:0              3rd Qu.: 0.000         
+ Max.   :0              Max.   : 2.177         
+                        NA's   :63965          
+ opposition_dem_target_int.V1 bandwidth_visibility bandwidth_proximity
+ Min.   :0                    Min.   :0.0000000    Min.   :0.000      
+ 1st Qu.:0                    1st Qu.:0.0000000    1st Qu.:0.004      
+ Median :0                    Median :0.0000000    Median :0.005      
+ Mean   :0                    Mean   :0.0001356    Mean   :  Inf      
+ 3rd Qu.:0                    3rd Qu.:0.0000000    3rd Qu.:0.008      
+ Max.   :0                    Max.   :0.1912699    Max.   :  Inf      
+ NA's   :63965                                     NA's   :42703      
+ sidea_revisionist_domestic revisionist_high legit_ideol_ratio   
+ Min.   :-2.7010            Min.   :0.0000   Min.   :-180.04501  
+ 1st Qu.:-0.7740            1st Qu.:0.0000   1st Qu.:   0.09823  
+ Median : 0.2790            Median :0.0000   Median :   0.39385  
+ Mean   : 0.3072            Mean   :0.4986   Mean   :   0.31365  
+ 3rd Qu.: 1.2290            3rd Qu.:1.0000   3rd Qu.:   0.67560  
+ Max.   : 3.5360            Max.   :1.0000   Max.   :  68.93103  
+                                                                 
+ ideol_legit_ratio  v2exl_legitideol_a v2exl_legitlead_a
+ Min.   :-180.045   Min.   :-2.7010    Min.   :-2.5970  
+ 1st Qu.:   0.095   1st Qu.:-0.7740    1st Qu.:-0.2560  
+ Median :   0.390   Median : 0.2790    Median : 0.6900  
+ Mean   :   0.193   Mean   : 0.3072    Mean   : 0.7175  
+ 3rd Qu.:   0.636   3rd Qu.: 1.2290    3rd Qu.: 1.6940  
+ Max.   :  68.931   Max.   : 3.5360    Max.   : 3.5770  
+ NA's   :63965                                          
+ v2exl_legitperf_a v2regoppgroupssize_a  oppsize_norm   
+ Min.   :-3.7370   Min.   :-3.870       Min.   :-3.136  
+ 1st Qu.:-0.3080   1st Qu.:-0.700       1st Qu.:-0.741  
+ Median : 0.5980   Median : 0.514       Median : 0.177  
+ Mean   : 0.3678   Mean   : 0.280       Mean   : 0.000  
+ 3rd Qu.: 1.1300   3rd Qu.: 1.298       3rd Qu.: 0.769  
+ Max.   : 2.8020   Max.   : 3.161       Max.   : 2.177  
+                   NA's   :63965        NA's   :63965   
+ sidea_party_elite_support sidea_religious_support
+ Min.   :-2.88400          Min.   :0.000          
+ 1st Qu.:-0.76600          1st Qu.:0.000          
+ Median : 0.18300          Median :0.125          
+ Mean   : 0.06045          Mean   :0.168          
+ 3rd Qu.: 0.77200          3rd Qu.:0.250          
+ Max.   : 3.01400          Max.   :1.000          
+                           NA's   :63965          
+ sidea_ethnic_racial_support sidea_military_support
+ Min.   :-2.6650             Min.   :1.436e-06     
+ 1st Qu.:-0.4930             1st Qu.:2.859e-04     
+ Median : 0.2580             Median :7.804e-04     
+ Mean   : 0.1683             Mean   :4.096e-03     
+ 3rd Qu.: 1.0010             3rd Qu.:2.922e-03     
+ Max.   : 3.2550             Max.   :2.312e-01     
+                                                   
+ sidea_rural_worker_support sidea_dynamic_leader politicalbandwidth
+ Min.   :0.013              Min.   :-2.5970      Min.   :0.00000   
+ 1st Qu.:0.214              1st Qu.:-0.2560      1st Qu.:0.03270   
+ Median :0.448              Median : 0.6900      Median :0.04516   
+ Mean   :0.444              Mean   : 0.7175      Mean   :0.06037   
+ 3rd Qu.:0.666              3rd Qu.: 1.6940      3rd Qu.:0.06900   
+ Max.   :0.960              Max.   : 3.5770      Max.   :0.23316   
+                                                                   
+ securitybandwidth economicbandwidth     bandwidth        log_capdist   
+ Min.   :0.00000   Min.   :0.000e+00   Min.   :0.00000   Min.   :0.000  
+ 1st Qu.:0.00000   1st Qu.:2.088e-05   1st Qu.:0.01213   1st Qu.:8.385  
+ Median :0.00000   Median :1.165e-02   Median :0.02258   Median :8.883  
+ Mean   :0.03644   Mean   :7.825e-02   Mean   :0.05500   Mean   :8.743  
+ 3rd Qu.:0.00000   3rd Qu.:1.216e-01   3rd Qu.:0.06733   3rd Qu.:9.297  
+ Max.   :1.58611   Max.   :1.552e+00   Max.   :0.90646   Max.   :9.899  
+                                                                        
+ capital_dist_km  v2x_libdem_a    autocracy_a    targets_democracy
+ Min.   :    0   Min.   :0.0050   Mode:logical   Min.   :0.00     
+ 1st Qu.: 4315   1st Qu.:0.0770   TRUE:1126609   1st Qu.:0.00     
+ Median : 7174   Median :0.1440                  Median :0.00     
+ Mean   : 7715   Mean   :0.1908                  Mean   :0.22     
+ 3rd Qu.:10789   3rd Qu.:0.2920                  3rd Qu.:0.00     
+ Max.   :19918   Max.   :0.4990                  Max.   :1.00     
+ NA's   :42703                                                    
+  v2x_libdem_b      cold_war      war_on_terror        cinc_a         
+ Min.   :0.005   Min.   :0.0000   Min.   :0.0000   Min.   :1.436e-06  
+ 1st Qu.:0.098   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2.859e-04  
+ Median :0.264   Median :0.0000   Median :0.0000   Median :7.804e-04  
+ Mean   :0.350   Mean   :0.4315   Mean   :0.3861   Mean   :4.096e-03  
+ 3rd Qu.:0.603   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:2.922e-03  
+ Max.   :0.897   Max.   :1.0000   Max.   :1.0000   Max.   :2.312e-01  
+ NA's   :38169                                                        
+     cinc_b          sidea_winning_coalition_size revisionism_distance
+ Min.   :2.440e-07   Min.   :-3.03200             Min.   :0.000       
+ 1st Qu.:2.070e-04   1st Qu.:-0.83600             1st Qu.:0.285       
+ Median :8.079e-04   Median : 0.03000             Median :0.639       
+ Mean   :5.304e-03   Mean   :-0.08419             Mean   :0.808       
+ 3rd Qu.:3.379e-03   3rd Qu.: 0.75400             3rd Qu.:1.203       
+ Max.   :2.312e-01   Max.   : 3.15100             Max.   :3.616       
+                                                  NA's   :38169       
+ nags_ideology_match nags_ideology_match_cont ln_capital_dist_km
+ Min.   :0           Min.   :0                Min.   :0.000     
+ 1st Qu.:0           1st Qu.:0                1st Qu.:8.370     
+ Median :0           Median :0                Median :8.878     
+ Mean   :0           Mean   :0                Mean   :8.733     
+ 3rd Qu.:0           3rd Qu.:0                3rd Qu.:9.286     
+ Max.   :0           Max.   :0                Max.   :9.899     
+                                              NA's   :42703     
+ legit_ideol_ratio_norm.V1      revisionist_norm.V1     
+ Min.   :-4.4972297680600   Min.   :-2.30828369209e+00  
+ 1st Qu.:-0.1098511029480   1st Qu.:-8.29626778974e-01  
+ Median : 0.0185884756234   Median :-2.16217299274e-02  
+ Mean   : 0.0000000000000   Mean   :-1.00000000000e-16  
+ 3rd Qu.: 0.1410003477720   3rd Qu.: 7.07347687541e-01  
+ Max.   : 4.1921734672700   Max.   : 2.47759236765e+00  
+                                                        
+ politicalbandwidth_norm.V1 bandwidth_proximity_norm.V1
+ Min.   :-1.381510652170    Min.   :-1.30735097768     
+ 1st Qu.:-0.633245754840    1st Qu.:-0.63252164969     
+ Median :-0.348130892288    Median :-0.37113453991     
+ Mean   : 0.000000000000    Mean   : 0.00000000000     
+ 3rd Qu.: 0.197604882584    3rd Qu.: 0.15445962730     
+ Max.   : 3.954402022120    Max.   : 3.18787612085     
+                            NA's   :42703              
+   cinc_a_log        cinc_b_log     
+ Min.   :-12.925   Min.   :-13.597  
+ 1st Qu.: -8.156   1st Qu.: -8.478  
+ Median : -7.154   Median : -7.120  
+ Mean   : -7.228   Mean   : -7.347  
+ 3rd Qu.: -5.835   3rd Qu.: -5.690  
+ Max.   : -1.465   Max.   : -1.465  

@@ -3,6 +3,8 @@
 # Derives signaling-specific variables and interactions on top of prepared data
 # =============================================================================
 
+here::i_am("R/shared/03_derive_signaling_vars.R") 
+
 source(here::here("R/shared/02_data_prep.R"))  # Loads and prepares df_prep
 
 message("Starting derivation of signaling variables on df_prep...")
