@@ -131,11 +131,7 @@ df_prep <- df_prep %>%
   mutate(across(
     c(sidea_revisionist_domestic, v2exl_legitideol_a, v2exl_legitlead_a, v2exl_legitperf_a,
       oppsize_norm, log_capdist, politicalbandwidth),
-    ~ if_else(is.na(.), median(., na.rm = TRUE), .)
   )) %>%
-  ungroup()
-
->>>>>>> 2bf586782a16ec28bc962d6c1f437b2c757000b0
 # Step 4: Derive NAG ideology match variables (after imputation so distances are available)
 df_prep <- df_prep %>%
   mutate(
@@ -184,4 +180,5 @@ if (any(is.na(df_prep$opposition_training_int))) {
 # Step 5: Assign prepared data globally for downstream scripts
 assign("df_prep", df_prep, envir = .GlobalEnv)
 message("Data preparation complete. 'df_prep' ready for modeling.")
+message("Key derived vars added/updated: oppsize_norm, log_capdist, bandwidth_visibility, bandwidth_proximity, high_cost_support, opposition_training_int, opposition_dem_target_int")
 message("Key derived vars added/updated: oppsize_norm, log_capdist, bandwidth_visibility, bandwidth_proximity, high_cost_support, opposition_training_int, opposition_dem_target_int")
