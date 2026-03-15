@@ -24,7 +24,26 @@ Below is a direct pros/cons comparison tailored to dyad-year panel, clustered SE
 | **Downsides**           | Fails badly with overdispersion/zeros               | No AIC/BIC; not true ML                             | Slower; still needs hurdle/ZINB for extreme zeros   |
 
 ### Recommended Workflow (add to every count-model script)
+
 1. **Test overdispersion** (after running Poisson):
    ```r
    library(AER)
    dispersiontest(poisson_model)   # H0: φ=1; p<0.05 → overdispersed
+
+2.Test zero-inflation 
+   library(pscl)
+   vuong_test <- vuong(poisson_model, zinb_model)   # or hurdle
+
+3. Primary model: Quasi-Poisson with fixest
+       feglm(nags_training ~ revisionist_high * targets_democracy + controls,
+           family = quasipoisson(link = "log"),
+           cluster = ~dyad, data = df_final)
+
+4. Robustness (always run):
+   
+      - Negative Binomial (fenegbin)
+      - Hurdle model (for massive zeros): hurdle(nags_training ~ ..., dist="negbin", link="logit") from pscl
+      - Zero-inflated NB (zeroinfl(..., dist="negbin"))
+      - Winsorized DV, subsample (nags_support_count > 0), region-year FE
+
+
