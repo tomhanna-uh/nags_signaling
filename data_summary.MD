@@ -56,8 +56,4 @@ These are the core outcome variables for your signaling hypotheses:
 - **factor**: 1 var (`dyad_id`)
 - **matrix/array**: 5 vars (the problematic scaled ones above)
 
-## Recommendations for Modeling/Plotting/Scripts
-1. **Fix the matrix issue** (will break `glm`, `lm`, `ggplot`, `stargazer`, etc.):
-   ```r
-   df_final <- df_final %>%
-     mutate(across(ends_with("_norm"), ~as.vector(.)))
+
