@@ -31,6 +31,9 @@
 
 here::i_am("R/shared/02_data_prep.R")
 
+source(here("R","shared","00_packages.R"))
+source(here("R","shared","01_load_data.R"))
+
 # Confirm dependencies are loaded
 if (!exists("df_raw")) {
   stop("df_raw not found. Please source 01_load_data.R first.")
