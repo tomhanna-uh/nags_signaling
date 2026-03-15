@@ -1,93 +1,81 @@
 # =============================================================================
 # 04_trim_and_finalize.R
-# Final trimming to whitelist + production-ready cleaning + saving of slim RDS
-#
-# This script:
-#   - Sources 03_derive_signaling_vars.R (which chains back to 02 and 01)
-#   - Applies whitelist trim
-#   - Performs final data cleaning (matrix→vector, logical→integer, Inf→NA)
-#   - Saves slim df_final for modeling
-#   - Cleans global environment
-#
-# Non-State Armed Groups and Ideological Signaling
-# Tom Hanna, University of Houston
-# Copyright © Tom Hanna, 2020–2026
-# Licensed under CC BY-NC-SA 4.0
-# Draft date: March 2026
+# Final trimming to whitelist + saving of production-ready RDS
+# Aggressive Global Environment cleanup at the END
 # =============================================================================
-
 here::i_am("R/shared/04_trim_and_finalize.R")
-source(here::here("R/shared/03_derive_signaling_vars.R"))  # chains back to 02/01
+source(here::here("R/shared/03_derive_signaling_vars.R")) # chains back to 02 and 01
+message("[04] Starting trim and finalize...")
 
-message("[04] Starting trim and final cleaning...")
+if (!exists("df_prep")) {
+  stop("[04] df_prep not found. 03_derive_signaling_vars.R did not complete.")
+}
 
-# ----------------------------------------------------------------------------
-# 1. Define whitelist (add any new vars here if needed)
-# ----------------------------------------------------------------------------
+# --- CONFIG: Toggles ---
+TRIM_DATASET <- TRUE # FALSE = keep all columns
+CLEAN_GLOBAL <- TRUE # FALSE = skip cleanup
+
+# --- CONFIG: Whitelist of variables to KEEP ---
 KEEP_VARS <- c(
-  # Core identifiers
-  "COWcode_a", "COWcode_b", "year", "dyad", "dyad_id",
-  
-  # NAG outcome variables (counts + binaries)
-  "nags_support_count", "nags_training", "nags_arms", "nags_funds",
-  "nags_troops", "nags_safe_haven", "nags_any_support",
-  "nags_active_support", "nags_defacto_support",
-  
-  # Signaling interactions
-  "high_cost_support", "low_cost_domestic_support",
-  "opposition_training_int", "bandwidth_visibility", "bandwidth_proximity",
-  
-  # Ideology & legitimation
-  "sidea_revisionist_domestic", "revisionist_high", "ideol_legit_ratio",
-  "nags_ideology_match", "nags_ideology_match_cont",
-  
-  # Controls & transformations
+  "COWcode_a", "COWcode_b", "year", "dyad", "dyad_id", "unregiona",
+  "nags_any_support", "nags_active_support", "nags_defacto_support",
+  "nags_support_count", "nags_safe_haven", "nags_training", "nags_arms",
+  "nags_funds", "nags_troops",
+  "high_cost_support", "low_cost_domestic_support", "nags_dem_target_support",
+  "nags_targets_democracy", "opposition_training_int", "opposition_dem_target_int",
+  "bandwidth_visibility", "bandwidth_proximity",
+  "sidea_revisionist_domestic", "revisionist_high",
+  "legit_ideol_ratio", "ideol_legit_ratio",
+  "v2exl_legitideol_a", "v2exl_legitlead_a", "v2exl_legitperf_a",
+  "v2regoppgroupssize_a", "oppsize_norm",
+  "sidea_party_elite_support", "sidea_religious_support",
+  "sidea_ethnic_racial_support", "sidea_military_support",
+  "sidea_rural_worker_support", "sidea_dynamic_leader",
   "politicalbandwidth", "securitybandwidth", "economicbandwidth", "bandwidth",
-  "ln_capital_dist_km", "capital_dist_km", "log_capdist",
-  "v2x_libdem_a", "targets_democracy", "cold_war", "war_on_terror",
+  "log_capdist", "capital_dist_km",
+  "v2x_libdem_a", "autocracy_a", "targets_democracy", "v2x_libdem_b",
+  "cold_war", "war_on_terror", "year",
   "cinc_a", "cinc_b", "sidea_winning_coalition_size",
-  "revisionism_distance", "v2regoppgroupssize_a", "oppsize_norm",
-  
-  # Normalized versions (cleaned in next section)
-  "legit_ideol_ratio_norm", "revisionist_norm",
-  "politicalbandwidth_norm", "bandwidth_proximity_norm"
+  "revisionism_distance", "nags_ideology_match", "nags_ideology_match_cont",
+  "ln_capital_dist_km", "legit_ideol_ratio_norm", "revisionist_norm",
+  "politicalbandwidth_norm", "bandwidth_proximity_norm",
+  "cinc_a_log", "cinc_b_log"
 )
 
-# Toggle: set to FALSE only for debugging
-TRIM_DATASET <- TRUE
-
-# ----------------------------------------------------------------------------
-# 2. Trim to whitelist
-# ----------------------------------------------------------------------------
+# --- Trim logic ---
 if (TRIM_DATASET) {
   message("[04] Trimming to ", length(KEEP_VARS), " kept variables...")
   
   missing_in_data <- setdiff(KEEP_VARS, names(df_prep))
   if (length(missing_in_data) > 0) {
-    warning("[04] These whitelisted variables are missing: ",
-            paste(missing_in_data, collapse = ", "))
+    warning("[04] Missing whitelisted variables: ", paste(missing_in_data, collapse = ", "))
   }
   
-  df_final <- df_prep |>
-    select(any_of(KEEP_VARS))
+  available_keep <- intersect(KEEP_VARS, names(df_prep))
+  df_final <- df_prep[, available_keep, drop = FALSE]
   
   message("[04] After trim: ", ncol(df_final), " columns remaining")
+  message("[04] Remaining columns:")
+  print(names(df_final))
 } else {
   message("[04] TRIM_DATASET = FALSE → keeping all columns")
   df_final <- df_prep
 }
 
 # ----------------------------------------------------------------------------
-# 3. Final data cleaning (matrix fix, logical→integer, Inf→NA)
-#    One efficient mutate pass — memory/CPU friendly
+# --- FINAL DATA CLEANING (added here — after trim, before save)
+#     Fixes the three issues you reported:
+#     1. matrix/array _norm vars → plain numeric
+#     2. logical flags → integer 0/1
+#     3. Inf in bandwidth_proximity → NA
 # ----------------------------------------------------------------------------
-message("[04] Applying final cleaning...")
+message("[04] Applying final cleaning (matrix fix + logical→integer + Inf→NA)...")
 df_final <- df_final |>
   mutate(
     # 1. Convert any _norm matrix/array back to plain numeric vectors
     across(ends_with("_norm"), ~as.vector(.)),
     
-    # 2. Convert logical flags to integer 0/1 (for glm/stargazer compatibility)
+    # 2. Convert logical flags to integer 0/1 (for glm/stargazer/ggplot)
     across(c(high_cost_support, low_cost_domestic_support, autocracy_a),
            as.integer),
     
@@ -98,39 +86,53 @@ df_final <- df_final |>
   # One-pass zero-fill for safety
   mutate(across(starts_with("nags_"), ~replace_na(., 0L)))
 
-message("[04] Cleaning complete.")
+message("[04] Final cleaning complete.")
 
-# ----------------------------------------------------------------------------
-# 4. Quick diagnostic (remove in production if you want)
-# ----------------------------------------------------------------------------
-message("[04] Post-cleaning summary of key variables:")
-df_final |>
-  summarise(across(c(ends_with("_norm"), high_cost_support,
-                     low_cost_domestic_support, bandwidth_proximity),
-                   list(class = ~class(.), max = ~max(., na.rm = TRUE)))) |>
-  print()
+# --- Final save ---
+saveRDS(df_final, here("data", "GRAVE_D_Master_with_Leaders_nags_signals_trimmed.rds"))
+message("[04] Final trimmed dataset saved: GRAVE_D_Master_with_Leaders_nags_signals_trimmed.rds")
 
-# ----------------------------------------------------------------------------
-# 5. Save production-ready dataset + tables
-# ----------------------------------------------------------------------------
-saveRDS(df_final, here("data", "df_final.rds"))
-message("[04] Saved: data/df_final.rds (production version)")
-
-# Optional CSV table of summary statistics (useful for QMD files)
-write_csv(
-  df_final |> summarise(across(everything(), list(mean = ~mean(., na.rm = TRUE),
-                                                  sd   = ~sd(., na.rm = TRUE),
-                                                  min  = ~min(., na.rm = TRUE),
-                                                  max  = ~max(., na.rm = TRUE)))),
-  here("results/tables", "df_final_summary.csv")
-)
-message("[04] Saved summary table: results/tables/df_final_summary.csv")
-
-# ----------------------------------------------------------------------------
-# 6. Aggressive environment cleanup
-# ----------------------------------------------------------------------------
-rm(list = setdiff(ls(), c("df_final", "KEEP_VARS", "TRIM_DATASET")))
-gc()
-message("[04] Global environment cleaned. Only df_final remains.")
-
-message("[04_trim_and_finalize.R] Done.")
+# --- Aggressive Global Environment cleanup + gc() at the END ---
+if (CLEAN_GLOBAL) {
+  message("[04] Aggressive Global Environment cleanup...")
+  
+  # Force gc before removal
+  gc(verbose = FALSE, full = TRUE)
+  
+  all_objs <- ls(envir = .GlobalEnv)
+  
+  # Explicitly KEEP only these (add any functions/configs you need)
+  KEEP_EXPLICIT <- c(
+    "df_final", # the trimmed modeling data
+    "KEEP_VARS", # whitelist for future edits
+    "TRIM_DATASET",
+    "CLEAN_GLOBAL"
+  )
+  
+  # Also keep anything that is a function
+  keep_functions <- all_objs[sapply(all_objs, function(x) is.function(get(x, envir = .GlobalEnv)))]
+  
+  # Combine
+  keep_final <- unique(c(KEEP_EXPLICIT, keep_functions))
+  
+  # Objects to remove: everything else
+  remove_objs <- setdiff(all_objs, keep_final)
+  
+  if (length(remove_objs) > 0) {
+    message("[04] Removing ", length(remove_objs), " objects (including df_raw, df_prep, temps)...")
+    rm(list = remove_objs, envir = .GlobalEnv)
+    
+    # Final gc after removal
+    gc(verbose = FALSE, full = TRUE)
+    message("[04] Garbage collection complete.")
+  } else {
+    message("[04] No objects to remove.")
+  }
+  
+  # Final status
+  message("[04] Final Global Environment objects: ", length(ls(envir = .GlobalEnv)))
+  message("[04] Remaining: ", paste(ls(envir = .GlobalEnv), collapse = ", "))
+} else {
+  message("[04] CLEAN_GLOBAL = FALSE → skipping cleanup")
+}
+message("[04] Done. Environment cleaned. Ready for modeling scripts.")
