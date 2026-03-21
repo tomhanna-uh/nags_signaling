@@ -18,6 +18,7 @@ TRIM_DATASET <- TRUE # FALSE = keep all columns
 CLEAN_GLOBAL <- TRUE # FALSE = skip cleanup
 
 # --- CONFIG: Whitelist of variables to KEEP ---
+# (your original list + new triadic NAG variables added at the end)
 KEEP_VARS <- c(
   "COWcode_a", "COWcode_b", "year", "dyad", "dyad_id", "unregiona",
   "nags_any_support", "nags_active_support", "nags_defacto_support",
@@ -41,7 +42,17 @@ KEEP_VARS <- c(
   "revisionism_distance", "nags_ideology_match", "nags_ideology_match_cont",
   "ln_capital_dist_km", "legit_ideol_ratio_norm", "revisionist_norm",
   "politicalbandwidth_norm", "bandwidth_proximity_norm",
-  "cinc_a_log", "cinc_b_log"
+  "cinc_a_log", "cinc_b_log",    # V-Dem subtype legitimation probabilities (for H4 sub-type alignment)
+  "v2exl_legitideolcr_0_a", "v2exl_legitideolcr_1_a", "v2exl_legitideolcr_2_a",
+  "v2exl_legitideolcr_3_a", "v2exl_legitideolcr_4_a",
+  "v2exl_legitideolcr_0_b", "v2exl_legitideolcr_1_b", "v2exl_legitideolcr_2_b",
+  "v2exl_legitideolcr_3_b", "v2exl_legitideolcr_4_b",
+  
+  # NEW triadic NAG aspiration variables (added for H5 and H4 corrections)
+  "nags_nondem_objective", "nags_auth_support",
+  "nags_ethnonationalist", "nags_religious", "nags_leftist",
+  "nags_obj_topple", "nags_obj_regimechange", "nags_obj_autonomy",
+  "nags_obj_secession", "nags_obj_policy", "nags_obj_other"
 )
 
 # --- Trim logic ---
@@ -65,11 +76,8 @@ if (TRIM_DATASET) {
 }
 
 # ----------------------------------------------------------------------------
-# --- FINAL DATA CLEANING (added here — after trim, before save)
-#     Fixes the three issues you reported:
-#     1. matrix/array _norm vars → plain numeric
-#     2. logical flags → integer 0/1
-#     3. Inf in bandwidth_proximity → NA
+# --- FINAL DATA CLEANING (after trim, before save)
+#     Fixes matrix/array scaled variables, logical→integer, Inf→NA
 # ----------------------------------------------------------------------------
 message("[04] Applying final cleaning (matrix fix + logical→integer + Inf→NA)...")
 df_final <- df_final |>
@@ -77,7 +85,7 @@ df_final <- df_final |>
     # 1. Convert any _norm matrix/array back to plain numeric vectors
     across(ends_with("_norm"), ~as.vector(.)),
     
-    # 2. Convert logical flags to integer 0/1 (for glm/stargazer/ggplot)
+    # 2. Convert logical flags to integer 0/1 (for glm/stargazer compatibility)
     across(c(high_cost_support, low_cost_domestic_support, autocracy_a),
            as.integer),
     

@@ -1,0 +1,24 @@
+,model_h14_qp,model_h14_nb
+Dependent Var.:,nags_any_support,nags_any_support
+ , , 
+Constant,8.714*** (0.7401),13.29*** (1.041)
+OppositionSizeNorm,-0.3396 (0.2183),-0.0801 (0.3702)
+NAGTargetsNonDemocracy,-4.360*** (0.4204),-4.241*** (0.6996)
+PoliticalBandwidth,-3.505 (2.925),-4.084 (5.567)
+LogCapitalDistance,-0.7430*** (0.0741),-1.209*** (0.0755)
+SenderCINCLog,0.3400*** (0.0425),0.3962*** (0.0372)
+TargetCINCLog,0.2804*** (0.0362),0.3359*** (0.0333)
+cold_war,-0.0754 (0.0794),-0.1114 (0.0883)
+war_on_terror,-0.3178*** (0.0747),-0.2739** (0.0844)
+OppositionSizeNorm x NAGTargetsNonDemocracy,0.3003 (0.2467),0.0452 (0.3921)
+OppositionSizeNorm x PoliticalBandwidth,1.280 (2.562),-2.401 (4.589)
+NAGTargetsNonDemocracy x PoliticalBandwidth,11.16*** (3.090),8.616 (5.711)
+OppositionSizeNorm x NAGTargetsNonDemocracy x PoliticalBandwidth,-0.1704 (2.701),3.896 (4.692)
+________________________________________,___________________,__________________
+Family,"quasipoisson(""log"")",Neg. Bin.
+S.E.: Clustered,by: dyad,by: dyad
+Observations,"1,024,049","1,024,049"
+Squared Cor.,0.04676,0.00137
+Pseudo R2,--,0.27411
+BIC,--,"53,795.6"
+Over-dispersion,--,0.61488

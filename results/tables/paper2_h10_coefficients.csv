@@ -1,0 +1,19 @@
+,model_h10_logit,model_h10_nb
+Dependent Var.:,AlignedNAGSupport,nags_support_count
+ , , 
+Constant,10.85*** (1.264),13.82*** (1.247)
+DynamicLeaderQuality,0.1446** (0.0500),0.2762*** (0.0749)
+PoliticalBandwidth,2.040 (1.691),-1.411 (2.253)
+LogCapitalDistance,-1.316*** (0.1145),-1.670*** (0.0963)
+SenderCINCLog,0.4439*** (0.0397),0.5560*** (0.0530)
+TargetCINCLog,0.4008*** (0.0383),0.3771*** (0.0479)
+cold_war,-0.2198* (0.0889),-0.0890 (0.1382)
+war_on_terror,-0.2606** (0.0885),-0.5301*** (0.1251)
+____________________,__________________,___________________
+Family,Logit,Neg. Bin.
+S.E.: Clustered,by: dyad,by: dyad
+Observations,"1,083,906","1,083,906"
+Squared Cor.,0.03640,1.11e-8
+Pseudo R2,0.26021,0.23817
+BIC,"55,234.7","35,937.2"
+Over-dispersion,--,0.07176

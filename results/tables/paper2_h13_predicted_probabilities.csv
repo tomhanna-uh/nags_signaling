@@ -1,0 +1,7 @@
+NAGTargetsNonDemocracy,OppositionSizeLevel,PredictedProbability
+No,Low (25th percentile),0.0343
+No,Median (50th percentile),0.0343
+No,High (75th percentile),0.0343
+Yes,Low (25th percentile),0.0016
+Yes,Median (50th percentile),3e-4
+Yes,High (75th percentile),0.0024

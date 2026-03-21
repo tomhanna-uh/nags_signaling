@@ -1,0 +1,7 @@
+DynamicLeaderLevel,OppositionSizeLevel,PredictedCount
+Low Dynamic,Low,9e-4
+Low Dynamic,Median,0.0017
+Low Dynamic,High,0.001
+High Dynamic,Low,0.0021
+High Dynamic,Median,0.0011
+High Dynamic,High,0.0023

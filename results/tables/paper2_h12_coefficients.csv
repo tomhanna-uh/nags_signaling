@@ -1,0 +1,19 @@
+,model_h12_qp,model_h12_nb
+Dependent Var.:,TrainingCamps,TrainingCamps
+ , , 
+Constant,7.425*** (1.174),14.17*** (1.210)
+OppositionSizeNorm,0.4059*** (0.0905),0.4448*** (0.0877)
+PoliticalBandwidth,0.4151 (2.392),-2.021 (2.053)
+LogCapitalDistance,-0.8675*** (0.0834),-1.657*** (0.0931)
+SenderCINCLog,0.4402*** (0.0617),0.4582*** (0.0502)
+TargetCINCLog,0.5110*** (0.0767),0.5579*** (0.0632)
+cold_war,-0.0515 (0.1167),0.0100 (0.1336)
+war_on_terror,-0.3047** (0.1153),-0.2679* (0.1301)
+__________________,___________________,__________________
+Family,"quasipoisson(""log"")",Neg. Bin.
+S.E.: Clustered,by: dyad,by: dyad
+Observations,"1,024,049","1,024,049"
+Squared Cor.,0.00299,0.00023
+Pseudo R2,--,0.24456
+BIC,--,"31,252.7"
+Over-dispersion,--,0.08904

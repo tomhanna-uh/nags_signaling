@@ -1,0 +1,40 @@
+
+\begingroup
+\centering
+\begin{tabular}{lcc}
+   \tabularnewline \midrule \midrule
+   Dependent Variable: & \multicolumn{2}{c}{TrainingCamps}\\
+   Model:              & (1)                  & (2)\\  
+                       &  quasipoisson("log") & Neg. Bin.\\  
+   \midrule
+   \emph{Variables}\\
+   Constant            & 7.425$^{***}$        & 14.17$^{***}$\\   
+                       & (1.174)              & (1.210)\\   
+   OppositionSizeNorm  & 0.4059$^{***}$       & 0.4448$^{***}$\\   
+                       & (0.0905)             & (0.0877)\\   
+   PoliticalBandwidth  & 0.4151               & -2.021\\   
+                       & (2.392)              & (2.053)\\   
+   LogCapitalDistance  & -0.8675$^{***}$      & -1.657$^{***}$\\   
+                       & (0.0834)             & (0.0931)\\   
+   SenderCINCLog       & 0.4402$^{***}$       & 0.4582$^{***}$\\   
+                       & (0.0617)             & (0.0502)\\   
+   TargetCINCLog       & 0.5110$^{***}$       & 0.5579$^{***}$\\   
+                       & (0.0767)             & (0.0632)\\   
+   cold\_war           & -0.0515              & 0.0100\\   
+                       & (0.1167)             & (0.1336)\\   
+   war\_on\_terror     & -0.3047$^{***}$      & -0.2679$^{**}$\\   
+                       & (0.1153)             & (0.1301)\\   
+   \midrule
+   \emph{Fit statistics}\\
+   Observations        & 1,024,049            & 1,024,049\\  
+   Squared Correlation & 0.00299              & 0.00023\\  
+   Pseudo R$^2$        &                      & 0.24456\\  
+   BIC                 &                      & 31,252.7\\  
+   Over-dispersion     &                      & 0.08904\\  
+   \midrule \midrule
+   \multicolumn{3}{l}{\emph{Clustered (dyad) standard-errors in parentheses}}\\
+   \multicolumn{3}{l}{\emph{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1}}\\
+\end{tabular}
+\par\endgroup
+
+
