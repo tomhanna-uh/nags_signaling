@@ -1,0 +1,21 @@
+,model_h8_qp,model_h8_nb
+Dependent Var.:,nags_support_count,nags_support_count
+ , , 
+Constant,6.939*** (1.151),13.20*** (1.239)
+DynamicLeader,0.1955 (0.1263),0.0066 (0.1086)
+RevisionistHigh,0.4942* (0.2191),0.5222* (0.2187)
+PoliticalBandwidth,0.2130 (2.265),-0.9702 (2.237)
+LogCapitalDistance,-0.9266*** (0.0851),-1.672*** (0.0940)
+SenderCINCLog,0.4729*** (0.0611),0.5106*** (0.0541)
+TargetCINCLog,0.3541*** (0.0556),0.3693*** (0.0480)
+cold_war,-0.1833 (0.1401),-0.1488 (0.1392)
+war_on_terror,-0.5491*** (0.1128),-0.5233*** (0.1257)
+DynamicLeader x RevisionistHigh,0.0947 (0.1281),0.2394. (0.1379)
+_______________________________,___________________,___________________
+Family,"quasipoisson(""log"")",Neg. Bin.
+S.E.: Clustered,by: dyad,by: dyad
+Observations,"1,083,906","1,083,906"
+Squared Cor.,0.00206,1.02e-8
+Pseudo R2,--,0.24295
+BIC,--,"35,739.9"
+Over-dispersion,--,0.07219

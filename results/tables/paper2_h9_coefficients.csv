@@ -1,0 +1,16 @@
+,model_h9_qp_rel,model_h9_qp_party
+Dependent Var.:,nags_support_count,nags_support_count
+ , , 
+Constant,7.753*** (1.169),7.736*** (1.166)
+ReligiousSupport,1.427*** (0.4129),  
+PoliticalBandwidth,-1.561 (2.481),-0.8258 (2.407)
+LogCapitalDistance,-0.9226*** (0.0867),-0.9064*** (0.0837)
+SenderCINCLog,0.5154*** (0.0617),0.5109*** (0.0604)
+TargetCINCLog,0.3855*** (0.0582),0.3710*** (0.0575)
+cold_war,0.0110 (0.1268),-0.0394 (0.1343)
+war_on_terror,-0.5215*** (0.1120),-0.4373*** (0.1161)
+PartyEliteSupport,  ,0.1258. (0.0719)
+__________________,___________________,___________________
+S.E.: Clustered,by: dyad,by: dyad
+Observations,"1,024,049","1,024,049"
+Squared Cor.,0.00318,0.00146

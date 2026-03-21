@@ -1,0 +1,44 @@
+
+\begingroup
+\centering
+\begin{tabular}{lcc}
+   \tabularnewline \midrule \midrule
+   Dependent Variable: & \multicolumn{2}{c}{nags\_support\_count}\\
+   Model:                                             & (1)                  & (2)\\  
+                                                      &  quasipoisson("log") & Neg. Bin.\\  
+   \midrule
+   \emph{Variables}\\
+   Constant                                           & 5.236$^{***}$        & 10.81$^{***}$\\   
+                                                      & (0.9991)             & (1.184)\\   
+   RevisionistLeaderHigh                              & 0.7950$^{***}$       & 0.7216$^{***}$\\   
+                                                      & (0.1804)             & (0.1734)\\   
+   NAGNonDemObjective                                 & 3.445$^{***}$        & 3.017$^{***}$\\   
+                                                      & (0.2867)             & (0.4338)\\   
+   PoliticalBandwidth                                 & 0.8041               & -0.0352\\   
+                                                      & (1.793)              & (2.049)\\   
+   LogCapitalDistance                                 & -0.8588$^{***}$      & -1.498$^{***}$\\   
+                                                      & (0.0747)             & (0.0954)\\   
+   SenderCINCLog                                      & 0.4137$^{***}$       & 0.4573$^{***}$\\   
+                                                      & (0.0587)             & (0.0556)\\   
+   TargetCINCLog                                      & 0.2805$^{***}$       & 0.3255$^{***}$\\   
+                                                      & (0.0438)             & (0.0445)\\   
+   cold\_war                                          & 0.0698               & 0.2291$^{*}$\\   
+                                                      & (0.1180)             & (0.1354)\\   
+   war\_on\_terror                                    & -0.3630$^{***}$      & -0.2891$^{**}$\\   
+                                                      & (0.1084)             & (0.1363)\\   
+   RevisionistLeaderHigh $\times$ NAGNonDemObjective  & 0.2886               & 1.160$^{**}$\\   
+                                                      & (0.3153)             & (0.5154)\\   
+   \midrule
+   \emph{Fit statistics}\\
+   Observations                                       & 1,083,906            & 1,083,906\\  
+   Squared Correlation                                & 0.10041              & 0.00033\\  
+   Pseudo R$^2$                                       &                      & 0.28535\\  
+   BIC                                                &                      & 33,746.1\\  
+   Over-dispersion                                    &                      & 0.14226\\  
+   \midrule \midrule
+   \multicolumn{3}{l}{\emph{Clustered (dyad) standard-errors in parentheses}}\\
+   \multicolumn{3}{l}{\emph{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1}}\\
+\end{tabular}
+\par\endgroup
+
+

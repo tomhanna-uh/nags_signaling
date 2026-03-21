@@ -1,0 +1,44 @@
+
+\begingroup
+\centering
+\begin{tabular}{lcc}
+   \tabularnewline \midrule \midrule
+   Dependent Variable: & \multicolumn{2}{c}{nags\_support\_count}\\
+   Model:                                  & (1)                  & (2)\\  
+                                           &  quasipoisson("log") & Neg. Bin.\\  
+   \midrule
+   \emph{Variables}\\
+   Constant                                & 6.939$^{***}$        & 13.20$^{***}$\\   
+                                           & (1.151)              & (1.239)\\   
+   DynamicLeader                           & 0.1955               & 0.0066\\   
+                                           & (0.1263)             & (0.1086)\\   
+   RevisionistHigh                         & 0.4942$^{**}$        & 0.5222$^{**}$\\   
+                                           & (0.2191)             & (0.2187)\\   
+   PoliticalBandwidth                      & 0.2130               & -0.9702\\   
+                                           & (2.265)              & (2.237)\\   
+   LogCapitalDistance                      & -0.9266$^{***}$      & -1.672$^{***}$\\   
+                                           & (0.0851)             & (0.0940)\\   
+   SenderCINCLog                           & 0.4729$^{***}$       & 0.5106$^{***}$\\   
+                                           & (0.0611)             & (0.0541)\\   
+   TargetCINCLog                           & 0.3541$^{***}$       & 0.3693$^{***}$\\   
+                                           & (0.0556)             & (0.0480)\\   
+   cold\_war                               & -0.1833              & -0.1488\\   
+                                           & (0.1401)             & (0.1392)\\   
+   war\_on\_terror                         & -0.5491$^{***}$      & -0.5233$^{***}$\\   
+                                           & (0.1128)             & (0.1257)\\   
+   DynamicLeader $\times$ RevisionistHigh  & 0.0947               & 0.2394$^{*}$\\   
+                                           & (0.1281)             & (0.1379)\\   
+   \midrule
+   \emph{Fit statistics}\\
+   Observations                            & 1,083,906            & 1,083,906\\  
+   Squared Correlation                     & 0.00206              & $1.02\times 10^{-8}$\\   
+   Pseudo R$^2$                            &                      & 0.24295\\  
+   BIC                                     &                      & 35,739.9\\  
+   Over-dispersion                         &                      & 0.07219\\  
+   \midrule \midrule
+   \multicolumn{3}{l}{\emph{Clustered (dyad) standard-errors in parentheses}}\\
+   \multicolumn{3}{l}{\emph{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1}}\\
+\end{tabular}
+\par\endgroup
+
+

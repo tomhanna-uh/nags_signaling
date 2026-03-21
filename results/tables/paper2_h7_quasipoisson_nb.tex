@@ -1,0 +1,40 @@
+
+\begingroup
+\centering
+\begin{tabular}{lcc}
+   \tabularnewline \midrule \midrule
+   Dependent Variable: & \multicolumn{2}{c}{nags\_support\_count}\\
+   Model:                & (1)                  & (2)\\  
+                         &  quasipoisson("log") & Neg. Bin.\\  
+   \midrule
+   \emph{Variables}\\
+   Constant              & 7.749$^{***}$        & 14.38$^{***}$\\   
+                         & (1.164)              & (1.239)\\   
+   IdeolLegitRatioWinsor & 0.0162               & 0.0327\\   
+                         & (0.0194)             & (0.0204)\\   
+   PoliticalBandwidth    & -0.9118              & -2.393\\   
+                         & (2.407)              & (2.209)\\   
+   LogCapitalDistance    & -0.8957$^{***}$      & -1.684$^{***}$\\   
+                         & (0.0848)             & (0.0980)\\   
+   SenderCINCLog         & 0.5225$^{***}$       & 0.5614$^{***}$\\   
+                         & (0.0606)             & (0.0533)\\   
+   TargetCINCLog         & 0.3734$^{***}$       & 0.3926$^{***}$\\   
+                         & (0.0570)             & (0.0482)\\   
+   cold\_war             & -0.0111              & -0.0068\\   
+                         & (0.1294)             & (0.1343)\\   
+   war\_on\_terror       & -0.4664$^{***}$      & -0.4483$^{***}$\\   
+                         & (0.1130)             & (0.1212)\\   
+   \midrule
+   \emph{Fit statistics}\\
+   Observations          & 1,024,049            & 1,024,049\\  
+   Squared Correlation   & 0.00141              & $2.41\times 10^{-8}$\\   
+   Pseudo R$^2$          &                      & 0.22776\\  
+   BIC                   &                      & 36,152.2\\  
+   Over-dispersion       &                      & 0.06917\\  
+   \midrule \midrule
+   \multicolumn{3}{l}{\emph{Clustered (dyad) standard-errors in parentheses}}\\
+   \multicolumn{3}{l}{\emph{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1}}\\
+\end{tabular}
+\par\endgroup
+
+

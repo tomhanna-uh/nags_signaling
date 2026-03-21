@@ -1,0 +1,5 @@
+DynamicLeaderLevel,RevisionistHigh,PredictedCount
+Low (25th percentile),No,8e-4
+Low (25th percentile),Yes,0.0011
+High (75th percentile),No,0.0012
+High (75th percentile),Yes,0.0022

@@ -1,0 +1,15 @@
+,model_h4_sub_qp
+Dependent Var.:,IdeologyMatch
+ , 
+Constant,1.694** (0.5588)
+RevisionistLegitimation,0.1567** (0.0500)
+PoliticalBandwidth,-1.920. (1.038)
+LogCapitalDistance,-0.1557** (0.0539)
+SenderCINCLog,0.0430 (0.0420)
+TargetCINCLog,0.1421*** (0.0418)
+cold_war,-0.0229 (0.0850)
+war_on_terror,-0.6659*** (0.1058)
+_______________________,___________________
+S.E.: Clustered,by: dyad
+Observations,"3,122"
+Squared Cor.,0.16962
