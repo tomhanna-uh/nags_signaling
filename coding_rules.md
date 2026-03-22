@@ -34,4 +34,70 @@ These rules ensure memory and CPU efficiency, clean environment management, repr
    - Never save the complete, unmodified model object as RDS.
 
 7. **Script headers**  
-   Standardize script headers using the format:  
+   Standardize script headers using the format:
+
+=============================================================================
+filename.R   (descriptive title)
+=============================================================================
+
+
+8. **Variable labels in output**  
+Use friendly, descriptive English labels for variables in tables, plots, and summaries (e.g., "Ideological Legitimation Share (1-SD, Winsorized)" instead of `legit_ideol_ratio_norm`). Ask for label suggestions if unsure.
+
+9. **Iterative, ground-up development**  
+Build and finalize scripts iteratively from the ground up. Ensure each base script (or major revision) is fully working and tested before layering additional models, post-estimation, or pipeline steps on top. Modifications to existing scripts are allowed, but only after confirming the core functionality remains intact.
+
+10. **Avoid namespace pollution / breakage**  
+ If a script requires a custom function or helper that conflicts with shared code or prior scripts, define it internally within that script only (or with a unique name). Delete or isolate it after successful execution to prevent breaking downstream or parallel scripts (e.g., when running `runall.R` for Quarto rendering).
+
+11. **Preferred friendly variable labels**  
+ Use consistent, readable English names in output tables/plots. See Appendix for common mappings. Expand as needed.
+
+12. **Reference data_summary.md**  
+ Always consult https://github.com/tomhanna-uh/nags_signaling/blob/main/data_summary.MD before writing or modifying scripts. Verify variable names, types, ranges, and summary statistics; make efficiency adjustments based on documented sparsity, NA patterns, or extreme values.
+
+13. **No unnecessary changes**  
+ Once a fix, convention, or implementation is established and working correctly, do not alter it unless explicitly required for a new analytical goal.
+
+14. **Modeling script template**  
+ Every modeling script must begin with:
+
+=============================================================================
+[filename.R]   (descriptive title, e.g., 08_h7_legitimation_ratios_qp_nb.R)
+=============================================================================
+
+here::i_am("R/[subfolder]/[filename.R]")  # replace with actual path
+
+Force clean load of trimmed + finalized data (Rule 3)
+
+source(here("R/shared/04_trim_and_finalize.R"))
+
+message("df_final loaded: ", nrow(df_final), " rows x ", ncol(df_final), " columns")
+
+
+### Appendix: Preferred Friendly Variable Labels (Starter List)
+
+This is a starting point based on common variables in the project. Edit/add as needed.
+
+- `sidea_revisionist_domestic` → "Revisionist Domestic Ideology (Side A)"  
+- `sideb_revisionist_domestic` → "Revisionist Domestic Ideology (Side B)"  
+- `legit_ideol_ratio_norm` → "Ideological Legitimation Share (1-SD, Winsorized)"  
+- `legit_personalist_ratio_norm` → "Personalist Legitimation Share (1-SD, Winsorized)"  
+- `v2exl_legitideol_a` → "Ideological Legitimation Reliance (Side A)"  
+- `v2exl_legitlead_a` → "Personalist/Leader Legitimation Reliance (Side A)"  
+- `nags_training` → "Count of Foreign NAGs Receiving Military Training Support"  
+- `nags_arms` → "Count of Foreign NAGs Receiving Arms Support"  
+- `nags_funds` → "Count of Foreign NAGs Receiving Financial Support"  
+- `nags_any_support` → "Any Support Provided to Foreign NAGs (Binary)"  
+- `cinc_a_log` → "Side A Capabilities (log)"  
+- `cinc_b_log` → "Side B Capabilities (log)"  
+- `ln_capital_dist_km` → "Log Distance to Capital (km)"  
+- `politicalbandwidth_norm` → "Normalized Political Bandwidth"  
+- `autocracy_a` → "Autocracy (Side A)"  
+- `sidea_dynamic_leader` → "Dynamic/Personalist Leadership (Side A)"  
+- `nags_religious`, `nags_leftist`, etc. → "NAG Ideology: Religious / Leftist / ..."  
+
+(Continue expanding for subtypes, opposition variables, etc.)
+
+
+
