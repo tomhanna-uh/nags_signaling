@@ -42,7 +42,7 @@ filename.R   (descriptive title)
 
 
 8. **Variable labels in output**  
-Use friendly, descriptive English labels for variables in tables, plots, and summaries (e.g., "Ideological Legitimation Share (1-SD, Winsorized)" instead of `legit_ideol_ratio_norm`). Ask for label suggestions if unsure.
+Use friendly, descriptive English labels for variables in tables, plots, and summaries (e.g., "Ideological Legitimation Share (1-SD, Winsorized)" instead of `legit_ideol_ratio_norm`). 
 
 9. **Iterative, ground-up development**  
 Build and finalize scripts iteratively from the ground up. Ensure each base script (or major revision) is fully working and tested before layering additional models, post-estimation, or pipeline steps on top. Modifications to existing scripts are allowed, but only after confirming the core functionality remains intact.
