@@ -74,6 +74,24 @@ source(here("R/shared/04_trim_and_finalize.R"))
 
 message("df_final loaded: ", nrow(df_final), " rows x ", ncol(df_final), " columns")
 
+15. **Preliminary diagnostic models**  
+    Before fitting the primary model in each script, run one or more simple baseline models to diagnose overdispersion, zero-inflation, or other specification issues. Document the results (e.g., dispersion statistic, proportion of zeros) in comments and use them to justify the primary specification.  
+
+    - For count outcomes (e.g., `nags_training`, `nags_arms`):  
+      Fit a plain Poisson GLM first and compute dispersion = deviance / residual df (or Pearson χ² / residual df).  
+      - Dispersion ≈ 1 → Poisson acceptable (rare).  
+      - Dispersion > 1.5–2 → overdispersion → primary = negative binomial (`glm.nb()`).  
+      - If proportion of zeros is very high (e.g., >70–80% of observations = 0) → consider zero-inflated negative binomial (`pscl::zeroinfl(..., dist = "negbin")`) as primary.  
+
+    - For binary outcomes (e.g., `nags_any_support`):  
+      Fit a standard logistic regression (`glm(..., family = binomial)`) first.  
+      Check for separation, perfect prediction, or unusual coefficients; if issues arise, consider Firth logistic or rare-events logit as primary/robustness.  
+
+    - In other appropriate cases (e.g., ordinal outcomes, multinomial, or survival models), run the simplest baseline model first (e.g., ordered logit before ordered probit, Cox PH before parametric survival) to test assumptions (proportional hazards, link function fit, etc.).  
+
+    - Save these diagnostic models' key statistics (dispersion, % zeros, logLik, deviance) as CSV or include in the script's plain-text output/summary.  
+    - Never skip diagnostics when switching model families; always document the choice (e.g., "Dispersion = 3.42 → NB primary").
+
 
 ### Appendix: Preferred Friendly Variable Labels (Starter List)
 
