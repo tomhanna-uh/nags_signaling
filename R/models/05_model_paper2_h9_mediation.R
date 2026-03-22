@@ -4,6 +4,7 @@
 # Primary: Negative Binomial (second stage)
 # Robustness: Quasipoisson
 # Diagnostics: Poisson + dispersion/zero check + ZINB/Hurdle comparison
+# Formal mediation: lavaan SEM with bootstrapped indirect effects
 # =============================================================================
 
 here::i_am("R/models/05_model_paper2_h9_mediation.R")
@@ -20,7 +21,7 @@ df_model <- df_final %>%
           sidea_religious_support, sidea_party_elite_support,
           cinc_a_log, cinc_b_log, ln_capital_dist_km, politicalbandwidth_norm) %>%
   mutate(
-    # Friendly names for output
+    # Friendly names for output and lavaan
     RevisionistIdeology       = sidea_revisionist_domestic,
     ReligiousSupport          = sidea_religious_support,
     PartyEliteSupport         = sidea_party_elite_support,
@@ -55,9 +56,9 @@ cat("  Dispersion (deviance / df): ", round(dispersion, 2), "\n")
 cat("  Proportion of zeros: ", round(prop_zeros * 100, 1), "%\n")
 cat("  Expected zeros under Poisson: ", round(expected_zeros * 100, 1), "%\n\n")
 
-# Justification: High zeros + dispersion → NB primary expected
+# Justification: High zeros + low dispersion → NB primary expected
 
-# ── 5. First-stage models: Revisionist Ideology → Mediators (OLS for simplicity)
+# ── 5. First-stage models: Revisionist Ideology → Mediators (OLS)
 first_religious <- lm(
   ReligiousSupport ~ 
     RevisionistIdeology +
@@ -94,10 +95,7 @@ nb_h9_party <- glm.nb(
   data = df_model
 )
 
-summary(nb_h9_religious)
-summary(nb_h9_party)
-
-# ── 7. Quasipoisson robustness (same specs)
+# ── 7. Quasipoisson robustness
 qp_h9_religious <- glm(
   nags_support_count ~ 
     ReligiousSupport +
@@ -116,42 +114,17 @@ qp_h9_party <- glm(
   data = df_model
 )
 
-summary(qp_h9_religious)
-summary(qp_h9_party)
-
-# ── 8. Optional ZINB / Hurdle comparison (to confirm no excess zeros needed)
-library(pscl)
-zinb_h9_religious <- zeroinfl(
-  nags_support_count ~ ReligiousSupport + 
-    SenderCapabilitiesLog + TargetCapabilitiesLog +
-    LogCapitalDistance + PoliticalBandwidthNorm | 1,
-  dist = "negbin", data = df_model
-)
-
-hurdle_h9_religious <- hurdle(
-  nags_support_count ~ ReligiousSupport + 
-    SenderCapabilitiesLog + TargetCapabilitiesLog +
-    LogCapitalDistance + PoliticalBandwidthNorm | 1,
-  dist = "negbin", data = df_model
-)
-
-# AIC/BIC comparison (example for religious mediator)
-AIC(nb_h9_religious, zinb_h9_religious, hurdle_h9_religious)
-BIC(nb_h9_religious, zinb_h9_religious, hurdle_h9_religious)
-
-# ── 9. Export tables (Rule 6)
-# CSV: tidy + conf.int
+# ── 8. Export NB/QP tables (Rule 6)
 write.csv(broom::tidy(nb_h9_religious, conf.int = TRUE),
           here("results/tables/h9_nb_religious_coefs.csv"))
 write.csv(broom::tidy(nb_h9_party, conf.int = TRUE),
           here("results/tables/h9_nb_party_coefs.csv"))
 
-# LaTeX: NB primary models side-by-side
 stargazer::stargazer(
   nb_h9_religious, nb_h9_party,
   type = "latex",
   out = here("results/tables/h9_nb_mediation_comparison.tex"),
-  title = "H9: Mediation – Support Groups and NAG Support Count (Negative Binomial)",
+  title = "H9: Support Groups and NAG Support Count (Negative Binomial)",
   dep.var.labels = "Count of Foreign NAGs Supported",
   column.labels = c("Religious Support", "Party-Elite Support"),
   covariate.labels = c(
@@ -167,17 +140,7 @@ stargazer::stargazer(
   digits = 3
 )
 
-# Plain text summary
-sink(here("results/tables/h9_mediation_summary.txt"))
-cat("=== NB Religious Mediator ===\n")
-print(summary(nb_h9_religious))
-cat("\n=== NB Party-Elite Mediator ===\n")
-print(summary(nb_h9_party))
-cat("\n=== QP Religious ===\n")
-print(summary(qp_h9_religious))
-sink()
-
-# ── 10. Predicted counts at mean mediator levels
+# ── 9. Predicted counts at mean mediator levels (NB)
 newdata_mean <- data.frame(
   ReligiousSupport = mean(df_model$ReligiousSupport, na.rm = TRUE),
   PartyEliteSupport = mean(df_model$PartyEliteSupport, na.rm = TRUE),
@@ -187,7 +150,7 @@ newdata_mean <- data.frame(
   PoliticalBandwidthNorm = mean(df_model$PoliticalBandwidthNorm, na.rm = TRUE)
 )
 
-pred_rel_nb  <- predict(nb_h9_religious,  newdata = newdata_mean, type = "response")
+pred_rel_nb  <- predict(nb_h9_religious, newdata = newdata_mean, type = "response")
 pred_party_nb <- predict(nb_h9_party, newdata = newdata_mean, type = "response")
 
 pred_table <- data.frame(
@@ -195,9 +158,52 @@ pred_table <- data.frame(
   PredictedNAGCount_NB = round(c(pred_rel_nb, pred_party_nb), 4)
 )
 
-print("Predicted Counts at Mean Mediator Levels (NB):")
-print(pred_table)
 write_csv(pred_table, here("results/tables/h9_predicted_counts_nb.csv"))
+
+# ── 10. Formal mediation via lavaan (SEM with bootstrapped indirect effects)
+library(lavaan)
+
+# Define the mediation model (two parallel paths)
+mediation_model <- '
+  # Direct paths
+  ReligiousSupport ~ a1 * RevisionistIdeology
+  PartyEliteSupport ~ a2 * RevisionistIdeology
+  
+  nags_support_count ~ c1 * RevisionistIdeology + 
+                       b1 * ReligiousSupport + 
+                       b2 * PartyEliteSupport
+  
+  # Indirect effects
+  indirect_religious := a1 * b1
+  indirect_party := a2 * b2
+  total_indirect := indirect_religious + indirect_party
+  total_effect := c1 + total_indirect
+'
+
+library(doParallel)  # or snow
+registerDoParallel(cores = 4)  # adjust to your machine (e.g., 4–8 cores)
+
+fit_lavaan <- sem(mediation_model, 
+                  data = df_model, 
+                  estimator = "ML",
+                  missing = "ML",
+                  se = "bootstrap", 
+                  bootstrap = 5000,
+                  parallel = "multicore",
+                  ncpus = 8)
+
+
+
+
+# Summary + parameter estimates
+summary(fit_lavaan, fit.measures = TRUE, standardized = TRUE)
+
+# Extract indirect effects with 95% CIs
+parameterEstimates(fit_lavaan, boot.ci.type = "bca.simple")
+
+# Save lavaan results
+write.csv(parameterEstimates(fit_lavaan, boot.ci.type = "bca.simple"),
+          here("results/tables/h9_lavaan_mediation_estimates.csv"))
 
 # ── 11. Simple marginal plot (saved directly)
 me_plot <- ggplot(pred_table, aes(x = Mediator, y = PredictedNAGCount_NB)) +
@@ -212,7 +218,7 @@ me_plot <- ggplot(pred_table, aes(x = Mediator, y = PredictedNAGCount_NB)) +
 ggsave(here("results/plots/h9_mediation_predicted_counts.png"), 
        me_plot, width = 9, height = 6, dpi = 300)
 
-message("H9 mediation complete. Tables/plots saved to results/")
+message("H9 mediation complete (NB primary + lavaan SEM). Tables/plots saved to results/")
 
 # ── 12. Cleanup
 rm(list = setdiff(ls(), c("df_model")))
