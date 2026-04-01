@@ -52,8 +52,17 @@ KEEP_VARS <- c(
   "nags_nondem_objective", "nags_auth_support",
   "nags_ethnonationalist", "nags_religious", "nags_leftist",
   "nags_obj_topple", "nags_obj_regimechange", "nags_obj_autonomy",
-  "nags_obj_secession", "nags_obj_policy", "nags_obj_other"
-)
+  "nags_obj_secession", "nags_obj_policy", "nags_obj_other",
+  # leader survival and tenure variables
+  "leader_survived_year",
+  "leader_tenure_years",
+  "leader_tenure_current_year",
+  "leader_exit_year",
+  "leader_exit_event",
+  "time_at_risk","tenure",
+  # training camp variables
+  "Num_DS_TrainCamp","Num_S_TrainCamp")
+
 
 # --- Trim logic ---
 if (TRIM_DATASET) {

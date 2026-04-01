@@ -41,8 +41,34 @@ df_prep <- df_raw |>
 
 message("Filtered to autocracies: ", nrow(df_prep), " rows remaining")
 
-# Step 2: Imputation of missing values (simple mean/median for continuous, mode for categorical)
-# (your original imputation logic stays here; add any new variables if needed)
+# Step 2: Imputation of missing values (from 06_impute_controls.R logic)
+# Simple mean/median for continuous, mode for categorical, linear interpolation where appropriate
+library(DescTools)
+# Only impute truly numeric control variables; skip IDs, years, COWcodes, obsids, etc.
+df_prep <- df_prep |>
+  group_by(unregiona) |>
+  mutate(
+    across(
+      .cols = where(is.numeric) & !matches("year|dyad|COWcode|obsid|leadid|idacr|stabb|age0|startobs|endobs|numld|revage|radrestrict"),
+      ~ if_else(is.na(.), median(., na.rm = TRUE), .)
+    )
+  ) |>
+  ungroup()
+
+# derive leader_exit_event
+
+df_prep <- df_prep %>%
+  group_by(obsid) %>%
+  mutate(
+    leader_exit_event = if_else(!is.na(obsid) & year == max(year), 1L, 0L),
+    
+    # Add this line for Cox model
+    time_at_risk = row_number(),          # simple spell time (1,2,3,... for each leader)
+    
+    # Alternative: years since entry
+    time_at_risk = year - min(year) + 1
+  ) %>%
+  ungroup()
 
 # Step 3: Derive revisionist indicators (from V-Dem legitimation)
 df_prep <- df_prep |>

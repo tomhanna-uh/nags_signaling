@@ -143,10 +143,11 @@ write_csv(etable(model_h4_sub_qp, tex = FALSE), here("results/tables", "paper2_h
 message("All tables saved separately as CSV and LaTeX.")
 
 # ----------------------------------------------------------------------------
-# Predicted probabilities table (Revisionist Legitimation Quartiles - full sample)
+# Predicted probabilities table (full sample) — explicit factor order (Rule 14)
 # ----------------------------------------------------------------------------
 newdata <- expand.grid(
-  RevisionistLegitimation = quantile(df_model$RevisionistLegitimation, probs = c(0.25, 0.5, 0.75), na.rm = TRUE),
+  RevisionistLegitimation = quantile(df_model$RevisionistLegitimation, 
+                                     probs = c(0.25, 0.5, 0.75), na.rm = TRUE),
   PoliticalBandwidth      = mean(df_model$PoliticalBandwidth, na.rm = TRUE),
   LogCapitalDistance      = mean(df_model$LogCapitalDistance, na.rm = TRUE),
   SenderCINCLog           = mean(df_model$SenderCINCLog, na.rm = TRUE),
@@ -158,33 +159,36 @@ newdata <- expand.grid(
 preds <- predict(model_h4_qp, newdata = newdata, type = "response")
 
 pred_table <- data.frame(
-  RevisionistLegitimationLevel = c("Low (25th percentile)", "Median (50th percentile)", "High (75th percentile)"),
+  RevisionistLegitimationLevel = factor(c("Low (25th)", "Median (50th)", "High (75th)"),
+                                        levels = c("Low (25th)", "Median (50th)", "High (75th)")),
   PredictedProbability         = round(preds, 4)
 )
 
 print("Predicted Probabilities Table (H4 - full sample):")
 print(pred_table)
-write_csv(pred_table, here("results/tables", "paper2_h4_predicted_probabilities.csv"))
+write_csv(pred_table, here("results/tables/paper2_h4_predicted_probabilities.csv"))
 
 # ----------------------------------------------------------------------------
-# Predicted probabilities table (subsample)
+# Predicted probabilities table (subsample) — explicit factor order (Rule 14)
 # ----------------------------------------------------------------------------
 preds_sub <- predict(model_h4_sub_qp, newdata = newdata, type = "response")
 
 pred_table_sub <- data.frame(
-  RevisionistLegitimationLevel = c("Low (25th percentile)", "Median (50th percentile)", "High (75th percentile)"),
+  RevisionistLegitimationLevel = factor(c("Low (25th)", "Median (50th)", "High (75th)"),
+                                        levels = c("Low (25th)", "Median (50th)", "High (75th)")),
   PredictedProbabilitySub      = round(preds_sub, 4)
 )
 
 print("Predicted Probabilities Table (H4 - subsample support > 0):")
 print(pred_table_sub)
-write_csv(pred_table_sub, here("results/tables", "paper2_h4_predicted_probabilities_subsample.csv"))
+write_csv(pred_table_sub, here("results/tables/paper2_h4_predicted_probabilities_subsample.csv"))
 
 # ----------------------------------------------------------------------------
-# Marginal effects plots — saved DIRECTLY to PNG
+# Marginal effects plots — fixed with explicit factor ordering (Rule 14)
 # ----------------------------------------------------------------------------
 # Full sample plot
-me_plot_full <- ggplot(pred_table, aes(x = RevisionistLegitimationLevel, y = PredictedProbability)) +
+me_plot_full <- ggplot(pred_table, aes(x = RevisionistLegitimationLevel, 
+                                       y = PredictedProbability)) +
   geom_point(size = 4, color = "steelblue") +
   geom_line(aes(group = 1), linewidth = 1, color = "steelblue") +
   labs(title = "H4: Higher Revisionist Legitimation Increases Ideological Match (Full Sample)",
@@ -193,7 +197,7 @@ me_plot_full <- ggplot(pred_table, aes(x = RevisionistLegitimationLevel, y = Pre
   theme_minimal(base_size = 14)
 
 ggsave(
-  filename = here("results/plots", "paper2_h4_marginal_effects_full.png"),
+  filename = here("results/plots/paper2_h4_marginal_effects_full.png"),
   plot     = me_plot_full,
   width    = 10,
   height   = 7,
@@ -202,7 +206,8 @@ ggsave(
 )
 
 # Subsample plot
-me_plot_sub <- ggplot(pred_table_sub, aes(x = RevisionistLegitimationLevel, y = PredictedProbabilitySub)) +
+me_plot_sub <- ggplot(pred_table_sub, aes(x = RevisionistLegitimationLevel, 
+                                          y = PredictedProbabilitySub)) +
   geom_point(size = 4, color = "darkgreen") +
   geom_line(aes(group = 1), linewidth = 1, color = "darkgreen") +
   labs(title = "H4: Higher Revisionist Legitimation Increases Ideological Match (Subsample: Support > 0)",
@@ -211,7 +216,7 @@ me_plot_sub <- ggplot(pred_table_sub, aes(x = RevisionistLegitimationLevel, y = 
   theme_minimal(base_size = 14)
 
 ggsave(
-  filename = here("results/plots", "paper2_h4_marginal_effects_subsample.png"),
+  filename = here("results/plots/paper2_h4_marginal_effects_subsample.png"),
   plot     = me_plot_sub,
   width    = 10,
   height   = 7,
@@ -219,7 +224,7 @@ ggsave(
   units    = "in"
 )
 
-message("Plots saved directly: paper2_h4_marginal_effects_full.png and paper2_h4_marginal_effects_subsample.png")
+message("Plots saved with correct Low → High ordering: paper2_h4_marginal_effects_full.png and paper2_h4_marginal_effects_subsample.png")
 
 # ----------------------------------------------------------------------------
 # Aggressive cleanup

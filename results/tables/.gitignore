@@ -1,10 +1,6 @@
-paper2_h1_coefficients.csv
-paper2_h1_predicted_probabilities.csv
-paper2_h1_quasipoisson_nb.tex
-h8_summary_with_logit.txt
-h7_legit_ratios_winsor_norm_comparison.txt
-h7_legit_ratios_qp_nb_summary.txt
 *.tex
 *.txt
 *.pdf
 *.csv
+*.csv
+paper2_h7_predicted_counts.csv

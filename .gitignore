@@ -1,3 +1,6 @@
+*.csv
+*.tex
+*.png
 # History files
 .Rhistory
 .Rapp.history
@@ -35,3 +38,5 @@ po/*~
 rsconnect/
 source_data
 me_plot.png
+Rplot.png
+Rplot01.png

@@ -4,7 +4,7 @@
 #       (Rational Autocrat signaling vs. Messianic/charismatic mechanism)
 # =============================================================================
 
-here::i_am("R/models/08_h7_legitimation_ratios.R")
+here::i_am("R/models/05_model_paper2_h7_legitimation_ratios.R")
 
 # ── 1. Force clean load of trimmed + finalized data (Rule 15)
 source(here("R/shared/04_trim_and_finalize.R"))
@@ -52,6 +52,8 @@ model_h7_ideol <- glm.nb(
     politicalbandwidth_norm,
   data = df_model
 )
+
+# Model 1a: Ideological Legitimation Dependence without sidea_revisionist_domestic
 
 summary(model_h7_ideol)
 
