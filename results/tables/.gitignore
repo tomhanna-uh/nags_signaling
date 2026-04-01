@@ -3,3 +3,10 @@
 *.txt
 *.pdf
 paper2_h7_predicted_counts.csv
+paper2_h11_coefficients.csv
+paper2_h3_predicted_counts.csv
+paper2_h3_coefficients.csv
+paper2_h2_predicted_counts.csv
+paper2_h2_coefficients.csv
+paper2_h4_baseline_coefficients.csv
+paper2_h12_predicted_counts.csv
