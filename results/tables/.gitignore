@@ -1,6 +1,5 @@
+*.csv
 *.tex
 *.txt
 *.pdf
-*.csv
-*.csv
 paper2_h7_predicted_counts.csv
