@@ -218,34 +218,64 @@ quarto render
 
 ## Repository Structure
 
+This repository is organized for reproducible analysis of non-state armed group (NAG) signaling in autocratic regimes. Key directories and their roles are as follows:
+
+- **`R/`** — Contains all R code for the project, including data loading and preparation, variable derivation, model estimation, helper functions/utilities, and reporting scripts. Subdirectories separate shared pipeline code from paper-specific analyses:
+  - `shared/` — Common pipeline scripts (loading, prep, signaling variable derivation, trimming, helpers, mechanism tests, and reporting tables).
+  - `paper2/` — Scripts specific to ideological commitment signaling (Paper 2).
+  - `paper3/` — Scripts specific to opposition resolve signaling (Paper 3).
+  - `models/` — Model specification and estimation scripts (shared or standalone).
+
+- **`data/`** — Stores both source and intermediate data files (git-ignored). Includes the master dataset (`GRAVE_D_Master_with_Leaders_nags_signals_trimmed.rds`) and any raw or processed inputs.
+
+- **`results/`** — Contains all model outputs, tables, figures, and other generated results (git-ignored). Subdirectories organize content by type:
+  - `5000_bootstraps/` — Saved results from mediation models run with 5000 bootstraps (excluded from quick/final runs to save time).
+  - `models/` — Stripped RDS versions of fitted models (lightweight objects without full environment).
+  - `plots/` — All generated plots and figures.
+  - `tables/` — Saved tables in multiple formats (CSV, LaTeX, etc.) for easy inclusion in manuscripts.
+
+- **`docs/`** — Quarto source files for the manuscripts/papers.
+
+Additional top-level files include configuration, documentation, and project settings (`.gitignore`, `LICENSE.md`, `coding_rules.md`, `hypothesis_roadmap.md`, `nags_signaling.Rproj`, etc.).
+
+Example tree:
+
+```bash
 nags_signaling/
+├── R/
+│   ├── shared/
+│   │   ├── 00_packages.R
+│   │   ├── 01_load_data.R
+│   │   ├── 02_data_prep.R
+│   │   ├── 03_derive_signaling_vars.R
+│   │   ├── 04_trim_and_finalize.R
+│   │   ├── 06_helpers.R
+│   │   ├── 11_h8_h14_mechanism.R
+│   │   └── 12_reporting_tables.R
+│   ├── paper2/
+│   │   ├── 07_h1_h3_count.R
+│   │   ├── 08_h7_h8_alignment.R
+│   │   └── ...
+│   ├── paper3/
+│   │   ├── 09_h10_survival_dual.R
+│   │   ├── 10_h14_risk_opposition.R
+│   │   └── ...
+│   └── models/
+│       └── paper2_resolve_baseline.R
+├── data/                  # intermediate data (gitignored)
+│   └── GRAVE_D_Master_with_Leaders_nags_signals_trimmed.rds
+├── results/               # all model outputs, tables, figures (gitignored)
+│   ├── 5000_bootstraps/   # heavy mediation results with 5000 bootstraps
+│   ├── models/            # stripped RDS versions of fitted models
+│   ├── plots/             # generated plots and figures
+│   └── tables/            # saved tables (csv, LaTeX, etc.)
+├── source_data/           # source data (gitignored)
+├── docs/                  # Quarto manuscript sources
 ├── README.md
 ├── nags_signaling.Rproj
 ├── .gitignore
-├── data/                                    # gitignored
-│   └── GRAVE_D_Master_with_Leaders_nags_signals_trimmed.rds
-R/
-├── shared/                                  # Common pipeline scripts
-│   ├── 00_packages.R
-│   ├── 01_load_data.R
-│   ├── 02_data_prep.R
-│   ├── 03_derive_signaling_vars.R          # All derivations + normalizations
-│   ├── 04_trim_and_finalize.R              # Trim, cleanup, save trimmed RDS
-|   ├── 06_helpers.R
-|   ├── 11_h8_h14_mechanism.R
-|   └── 12_reporting_tables.R
-├── paper2/                                  # Ideological commitment signaling (supporters)
-│   ├── 07_h1_h3_count.R
-│   ├── 08_h7_h8_alignment.R
-│   └── ... (add as needed)
-├── paper3/                                  # Opposition resolve signaling
-│   ├── 09_h10_survival_dual.R
-│   ├── 10_h14_risk_opposition.$
-│   └── ... (add as needed)
-└── models/                                  # Shared or standalone model scripts
-└── paper2_resolve_baseline.R           # Example
-
-## Related Repositories
+├── LICENSE.md
+└── ...
 
 ## Related Repositories
 
