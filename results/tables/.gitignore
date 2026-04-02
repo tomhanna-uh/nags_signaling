@@ -1,4 +1,5 @@
-*.csv
+$ cat .gitignore
+*sv
 *.tex
 *.txt
 *.pdf
