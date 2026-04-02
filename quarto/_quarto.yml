@@ -1,20 +1,26 @@
 project:
-  type: book          # or "manuscript" if you prefer article-style; "book" works well for multi-chapter
-  output-dir: ../docs   # renders final documents to the docs/ folder you described as "# final manuscript documents"
+  type: book
+  output-dir: ../docs
 
 title: "Non-State Armed Groups as Signals in Autocracies"
 author: "Tom Hanna"
 date: today
+
 bibliography: 
+  - references.bib
   - data_sources.bib
-  - references.bib      # adjust filename if your second bibtex file has a different name
 
 format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo          # clean, readable theme (change to simplex, flatly, etc. if you prefer)
+    code-fold: false
+    fig-cap-location: top
+    tbl-cap-location: top
   pdf:
     documentclass: article
     classoption: [a4paper, 12pt]
-    include-in-header: 
-      - style.tex         # if you have a LaTeX style file; otherwise remove
     toc: true
     number-sections: true
     fig-cap-location: top
@@ -26,17 +32,8 @@ book:
     - introduction.qmd
     - theory.qmd
     - data_methods.qmd
-    
-    # Paper 2
-    - part: "Paper 2: Ideological Commitment Signaling"
-      chapters:
-        - paper2_results.qmd
-    
-    # Paper 3
-    - part: "Paper 3: Opposition Resolve Signaling"
-      chapters:
-        - paper3_results.qmd
-    
-    - conclusion.qmd
-    - appendix.qmd
-    - references.qmd
+    # - paper2_results.qmd
+    # - paper3_results.qmd
+    # - conclusion.qmd
+    # - appendix.qmd
+    # - references.qmd

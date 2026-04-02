@@ -1,0 +1,50 @@
+---
+title: "Theory"
+---
+
+Autocratic leaders routinely support foreign non-state armed groups (NAGs) at considerable risk. They host training camps on their own territory, supply weapons and funds, and provide diplomatic cover — actions that invite sanctions, military retaliation, and reputational damage. Standard strategic accounts treat these behaviors as low-cost proxies for weak states or as extensions of great-power rivalry. Yet many cases involve visible, costly support with limited material payoff and clear alternatives through negotiation. The persistence of this behavior suggests a second, domestic audience.
+
+I argue that rational autocrats use NAG support as a dual signaling device in two-level politics. The same observable action sends one message to core ideological supporters and another to potential domestic opponents. This project develops and tests that claim across two papers that share data and methods but target distinct audiences.
+
+### The Core Puzzle and Dual Mechanisms
+
+Revisionist domestic ideologies — coherent systems that demand radical transformation of the domestic or international order — create strong incentives for leaders to demonstrate commitment abroad. Direct interstate conflict is expensive and risky. Support for foreign NAGs offers a lower-cost but still credible alternative: it is visible enough to register with domestic audiences yet deniable enough to limit immediate escalation.
+
+Two distinct signaling mechanisms operate:
+
+1. **Ideological Commitment Signaling (Paper 2)**  
+   Leaders who depend on revisionist support coalitions use NAG support to deliver a non-material payoff. By visibly backing ideologically aligned groups — especially those pursuing autocratic goals — the leader signals ideological consistency to their core backers. This strengthens legitimation through ideology, reduces pressure for costly material side-payments, and improves leader survival. The mechanism is strongest when domestic support groups are themselves revisionist (party elites, religious networks, or ethnic factions tied to the leader’s ideology).
+
+2. **Opposition Resolve Signaling (Paper 3)**  
+   When facing larger or more organized domestic opposition, leaders increase visible NAG support — particularly by hosting training camps on home soil — **to signal resolve to domestic opponents**. This deters challengers by demonstrating that the regime is willing to employ armed force if necessary. Leaders nevertheless display bounded rationality: they strategically reduce support for NAGs that target democracies to avoid triggering severe international backlash from powerful states or their allies.
+
+Both mechanisms rely on the **costliness and visibility** of the signal. Hosting camps or providing overt material aid is harder to hide than quiet financial transfers, making denial less plausible and the signal more credible to domestic audiences.
+
+### Three Ideal Types
+
+The empirical pattern — revisionist autocrats provide more NAG support, prefer ideologically congruent groups, and show selective targeting — can arise from different micro-foundations. Three ideal types structure the analysis:
+
+| Type                        | Core Claim                                                                 | Key Mechanism                                      | Primary Paper |
+|-----------------------------|----------------------------------------------------------------------------|----------------------------------------------------|---------------|
+| **Ideological Autocrat** (Baseline) | Revisionist leadership ideology directly predicts greater NAG support, alignment, and targeting of rivals (especially democracies). | Empirical regularity; does not specify the driver. | Both         |
+| **Rational Autocrat** (Primary)    | Leaders instrumentally deploy NAG support as a costly signal to domestic audiences — first to satisfy ideological coalitions, then **to signal resolve to domestic opponents**. | Coalition maintenance and deterrence via non-material payoffs; strategic avoidance of high-risk targets to balance credibility against retaliation. | Paper 2 & 3  |
+| **Messianic Autocrat** (Competing) | Dynamic, charismatic leaders pursue personal normative revisionist goals abroad. | Leader personality and boldness drive behavior; less strategic restraint expected. | Paper 2 & 3  |
+
+The project’s central claim is that the **Rational Autocrat** mechanism dominates. Leaders act as utility maximizers who convert risky international behavior into domestic political capital. They balance the credibility gains from signaling against the external costs of retaliation, producing observable strategic restraint (e.g., reduced support for democracy-targeting NAGs when opposition is high). Dynamic leadership may amplify overall support levels but does not eliminate this calculated trade-off.
+
+### Integration Across Papers
+
+Paper 2 tests the commitment-signaling pathway: revisionist ideology and ideological support groups increase NAG support and alignment (H1–H10), with mediation through legitimation strategies and survival benefits. Paper 3 tests the resolve-signaling pathway: larger opposition increases overall NAG support and especially hosting of training camps (H11–H16), yet leaders avoid democracy-targeting groups in high-visibility dyads.
+
+The same observable behavior therefore serves dual purposes. A single act of NAG support can simultaneously reassure ideological backers **and signal resolve to domestic opponents**, making it an efficient tool for leaders operating under tight resource and legitimacy constraints. This dual-use logic extends the findings from the earlier project on militarized interstate disputes as ideological signals, shifting the focus from direct conflict to deniable conflict export.
+
+The empirical sections that follow evaluate these claims using dyadic GRAVE-D data augmented with the Non-State Armed Groups Database. Models distinguish baseline patterns from the rational versus messianic mechanisms through interaction, mediation, and survival specifications. Descriptive statistics and correlations appear in the Data and Methods chapter.
+
+```{r}
+#| label: setup-theory
+#| include: false
+
+# Global setup for the theory chapter
+library(knitr)
+options(knitr.kable.NA = "")
+```

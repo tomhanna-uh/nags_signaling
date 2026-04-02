@@ -1,0 +1,135 @@
+---
+title: "Data and Methods"
+bibliography: 
+  - references.bib
+  - data_sources.bib
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+    fig-cap-location: top
+    tbl-cap-location: top
+  pdf:
+    documentclass: article
+    classoption: [a4paper, 12pt]
+    toc: true
+    number-sections: true
+    fig-cap-location: top
+    tbl-cap-location: top
+---
+
+```{r}
+#| label: setup-data-methods
+#| include: false
+
+library(here)
+
+here::i_am("quarto/data_methods.qmd")
+
+# Force correct project root (important for RStudio Render button)
+setwd(here::here())
+
+# Copy plots to a folder Quarto can reliably find
+dir.create(here("quarto/plots"), showWarnings = FALSE, recursive = TRUE)
+file.copy(here("results/plots/corrplot_full.png"), 
+          here("quarto/plots/corrplot_full.png"), overwrite = TRUE)
+file.copy(here("results/plots/corrplot_key.png"), 
+          here("quarto/plots/corrplot_key.png"), overwrite = TRUE)
+
+library(knitr)
+options(knitr.kable.NA = "")
+
+message("Working directory: ", getwd())
+message("Plots copied to quarto/plots/ for rendering")
+```
+
+This chapter describes the data sources, variable construction, analytic sample, and modeling strategy used in both papers. All analysis scripts are located in the `R/` directory and follow the project's coding conventions: each model script sources the shared pipeline (except `00_packages.R`), saves results to `results/tables/` and `results/plots/`, and aggressively cleans the environment after use.
+
+### Data Sources
+
+The primary data infrastructure combines the GRAVE-D dataset (which provides dyadic Militarized Interstate Dispute information augmented with leader and regime characteristics) with the Non-State Armed Groups Database. Additional variables are drawn from V-Dem for legitimation strategies, opposition strength, and ideological dependence. The master dataset is trimmed and finalized in `R/shared/04_trim_and_finalize.R` to produce the analytic sample used in all models.
+
+### Analytic Sample
+
+The trimmed dataset (`GRAVE_D_Master_with_Leaders_nags_signals_trimmed.rds`) contains autocratic regimes from 1946 onward with complete information on NAG support, domestic support coalitions, opposition strength, and key controls. Descriptive statistics for the major variables appear below.
+
+### Descriptive Statistics
+
+
+```{r}
+#| label: tbl-descriptive
+#| tbl-cap: "Descriptive statistics for major variables"
+#| echo: false
+
+kable(read.csv(here("results/tables/descriptive_statistics.csv")), 
+      digits = 3, booktabs = TRUE)
+```
+
+### Correlation Plots
+
+```{r}
+#| label: tbl-correlation
+#| tbl-cap: "Pairwise correlations among major variables"
+#| echo: false
+
+kable(read.csv(here("results/tables/correlation_matrix.csv")), 
+      digits = 3, booktabs = TRUE)
+```
+
+
+```{r}
+#| label: fig-corrplot-full
+#| fig-cap: "Correlation plot for all major variables"
+#| out-width: "90%"
+#| echo: false
+#| cache: false
+
+knitr::include_graphics("plots/corrplot_full.png")
+
+```
+
+```{r}
+#| label: fig-corrplot-key
+#| fig-cap: "Correlation plot for key signaling and outcome variables"
+#| out-width: "90%"
+#| echo: false
+#| cache: false
+
+knitr::include_graphics("plots/corrplot_key.png")
+```
+
+
+### Variable Construction and Measurement
+
+**Key independent variables** include:
+
+- Revisionist leadership ideology and support group composition (from GRAVE-D)
+- Ideological legitimation dependence (`v2exl_legitideol`)
+- Domestic opposition strength and organization (V-Dem)
+- Hosting of NAG training camps and overall NAG support counts
+
+**Dependent variables** are constructed as:
+- Counts of supported NAGs (modeled with negative binomial regression)
+- Binary indicators of specific types of support (logistic regression)
+- Leader tenure/survival (duration models)
+
+**Controls** follow standard international relations specifications, including capability ratios, capital distance, alliances, and regime characteristics. Detailed variable definitions and operationalizations for each hypothesis appear in the paper-specific results chapters.
+
+### Modeling Strategy
+
+All models are estimated in the `R/paper2/` and `R/paper3/` directories. Each script sources the shared pipeline (`01_load_data.R` through `04_trim_and_finalize.R`), estimates the specified models, extracts coefficients, standard errors, z/t-statistics, p-values, and fit statistics, and saves results according to project rules:
+
+- Tables (CSV and LaTeX) → `results/tables/`
+- Plots → `results/plots/`
+- Stripped minimal RDS objects (when needed for post-estimation) → `results/models/`
+
+Heavy mediation models run with 5000 bootstraps are stored separately in `results/5000_bootstraps/` and are **not** re-run during manuscript rendering.
+
+Paper 2 uses count, logistic, mediation, and survival specifications to test ideological commitment signaling to core support groups. Paper 3 employs similar specifications with interaction terms to test resolve signaling to domestic opponents, including strategic avoidance of democracy-targeting NAGs under high opposition.
+
+Robustness checks and extended tables appear in the Appendix.
+
+
+
+
