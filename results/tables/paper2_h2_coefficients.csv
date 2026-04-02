@@ -1,19 +1,19 @@
-,model_h2_qp,model_h2_nb
-Dependent Var.:,nags_support_count,nags_support_count
- , , 
-Constant,7.214*** (1.127),13.30*** (1.217)
-RevisionistSupportLevel,0.4158*** (0.0799),0.3977*** (0.0670)
-PoliticalBandwidth,0.2401 (2.244),-0.5473 (2.185)
-LogCapitalDistance,-0.9369*** (0.0816),-1.668*** (0.0938)
-SenderCINCLog,0.4581*** (0.0620),0.4927*** (0.0543)
-TargetCINCLog,0.3457*** (0.0554),0.3673*** (0.0480)
-cold_war,-0.3262* (0.1522),-0.2386. (0.1402)
-war_on_terror,-0.5370*** (0.1131),-0.5386*** (0.1236)
-_______________________,___________________,___________________
-Family,"quasipoisson(""log"")",Neg. Bin.
-S.E.: Clustered,by: dyad,by: dyad
-Observations,"1,083,906","1,083,906"
-Squared Cor.,0.00219,2.93e-8
-Pseudo R2,--,0.24482
-BIC,--,"35,624.5"
-Over-dispersion,--,0.07115
+,model_h2_nb,model_h2_qp,model_h2_sub_nb
+Dependent Var.:,nags_support_count,nags_support_count,nags_support_count
+ , , , 
+Constant,12.47*** (1.166),6.966*** (1.124),1.416*** (0.3966)
+`RevisionistSupportLevel`,0.4091*** (0.0645),0.4235*** (0.0775),0.0492* (0.0220)
+`PoliticalBandwidth`,0.5426 (2.129),0.8882 (2.224),0.0727 (0.5758)
+`LogCapitalDistance`,-1.597*** (0.0891),-0.9258*** (0.0813),-0.1336*** (0.0355)
+`SenderCINC(log)`,0.4770*** (0.0517),0.4482*** (0.0599),0.0272 (0.0207)
+`TargetCINC(log)`,0.3441*** (0.0452),0.3338*** (0.0530),0.0199 (0.0228)
+cold_war,-0.2979* (0.1376),-0.3604* (0.1495),0.0385 (0.0706)
+war_on_terror,-0.5001*** (0.1177),-0.5094*** (0.1083),-0.0302 (0.0377)
+_________________________,___________________,___________________,___________________
+Family,Neg. Bin.,"quasipoisson(""log"")",Neg. Bin.
+S.E.: Clustered,by: dyad,by: dyad,by: dyad
+Observations,"1,126,609","1,126,609","3,276"
+Squared Cor.,1.64e-7,0.00227,0.08237
+Pseudo R2,0.23686,--,0.01162
+BIC,"37,622.8",--,"7,840.1"
+Over-dispersion,0.07130,--,"10,000"

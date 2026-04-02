@@ -1,5 +1,5 @@
 RevisionistLeaderHigh,NAGNonDemObjective,PredictedCount
-No,No,7e-4
-No,Yes,0.0016
-Yes,No,0.0225
-Yes,Yes,0.0664
+Low,No,4e-4
+Low,Yes,8e-4
+High,No,0.0075
+High,Yes,0.0558

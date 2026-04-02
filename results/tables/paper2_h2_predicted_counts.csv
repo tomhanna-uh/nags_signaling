@@ -1,4 +1,4 @@
-RevisionistSupportLevel,PredictedCount
-Low (25th percentile),8e-4
-Median (50th percentile),0.0013
-High (75th percentile),0.0019
+Revisionist.Support.Level,Predicted.Count
+Low (25th),4e-4
+Median (50th),7e-4
+High (75th),0.001

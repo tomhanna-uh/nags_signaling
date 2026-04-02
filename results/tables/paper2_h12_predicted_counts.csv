@@ -1,4 +1,4 @@
-OppositionSizeLevel,PredictedTrainingCount
-Low (25th percentile),8e-4
-Median (50th percentile),0.0011
-High (75th percentile),0.0014
+OppositionSizeLevel,Predicted_Active,Predicted_DeFacto
+Low (25th),0,0
+Median,0,0
+High (75th),0,0

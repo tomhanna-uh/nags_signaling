@@ -1,4 +1,4 @@
-LegitimationRatioLevel,PredictedCount
-Low (25th percentile),0.0015
-Median (50th percentile),0.0016
-High (75th percentile),0.0016
+IdeologicalRatioLevel,PredictedCount
+Low (25th),5e-4
+Median (50th),5e-4
+High (75th),5e-4
