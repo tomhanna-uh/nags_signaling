@@ -1,19 +1,20 @@
-,model_h12_qp,model_h12_nb
-Dependent Var.:,TrainingCamps,TrainingCamps
- , , 
-Constant,7.425*** (1.174),14.17*** (1.210)
-OppositionSizeNorm,0.4059*** (0.0905),0.4448*** (0.0877)
-PoliticalBandwidth,0.4151 (2.392),-2.021 (2.053)
-LogCapitalDistance,-0.8675*** (0.0834),-1.657*** (0.0931)
-SenderCINCLog,0.4402*** (0.0617),0.4582*** (0.0502)
-TargetCINCLog,0.5110*** (0.0767),0.5579*** (0.0632)
-cold_war,-0.0515 (0.1167),0.0100 (0.1336)
-war_on_terror,-0.3047** (0.1153),-0.2679* (0.1301)
-__________________,___________________,__________________
-Family,"quasipoisson(""log"")",Neg. Bin.
-S.E.: Clustered,by: dyad,by: dyad
-Observations,"1,024,049","1,024,049"
-Squared Cor.,0.00299,0.00023
-Pseudo R2,--,0.24456
-BIC,--,"31,252.7"
-Over-dispersion,--,0.08904
+,model_h12_nb_total,model_h12_nb_active,model_h12_nb_defacto
+Dependent Var.:,TrainingCamps,ActiveTrainingCamps,DeFactoTrainingCamps
+ , , , 
+Constant,16.59*** (1.499),15.03*** (1.702),15.71*** (1.737)
+OppositionSizeNorm,0.6302*** (0.1227),0.5678** (0.1736),0.6699*** (0.1652)
+DynamicLeader,0.0440 (0.0907),0.1619 (0.1187),-0.0550 (0.1205)
+PoliticalBandwidth,-2.132 (2.333),-5.799. (2.970),1.831 (3.460)
+LogCapitalDistance,-1.979*** (0.1145),-1.901*** (0.1433),-1.951*** (0.1155)
+SenderCINCLog,0.4527*** (0.0639),0.4055*** (0.0831),0.4997*** (0.0816)
+TargetCINCLog,0.6584*** (0.0842),0.5830*** (0.0810),0.7104*** (0.1134)
+cold_war,0.1049 (0.1737),0.0368 (0.2095),0.1146 (0.2454)
+war_on_terror,-0.2078 (0.1613),-0.8867*** (0.2367),0.2135 (0.2242)
+OppositionSizeNorm x DynamicLeader,-0.0562 (0.0665),-0.0428 (0.0897),-0.0412 (0.0842)
+__________________________________,__________________,___________________,____________________
+S.E.: Clustered,by: dyad,by: dyad,by: dyad
+Observations,"1,126,609","1,126,609","1,126,609"
+Squared Cor.,0.00019,3.88e-8,0.00023
+Pseudo R2,0.28917,0.26226,0.30818
+BIC,"23,125.1","12,790.2","13,908.1"
+Over-dispersion,0.06243,0.04587,0.05176
