@@ -36,6 +36,8 @@ docs/
 po/*~
 # RStudio Connect folder
 rsconnect/
+# Results directory
+results/
 source_data
 me_plot.png
 Rplot.png
