@@ -271,6 +271,7 @@ nags_signaling/
 │   └── tables/            # saved tables (csv, LaTeX, etc.)
 ├── source_data/           # source data (gitignored)
 ├── docs/                  # Quarto manuscript sources
+├── quarto/                # QMD files for producing Quarto manuscript
 ├── README.md
 ├── nags_signaling.Rproj
 ├── .gitignore
