@@ -218,7 +218,7 @@ quarto render
 
 ## Repository Structure
 
-This repository is organized for reproducible analysis of non-state armed group (NAG) signaling in autocratic regimes. Key directories and their roles are as follows:
+This repository is organized for reproducible analysis of non-state armed group (NAG) signaling in autocratic regimes.
 
 - **`R/`** — Contains all R code for the project, including data loading and preparation, variable derivation, model estimation, helper functions/utilities, and reporting scripts. Subdirectories separate shared pipeline code from paper-specific analyses:
   - `shared/` — Common pipeline scripts (loading, prep, signaling variable derivation, trimming, helpers, mechanism tests, and reporting tables).
@@ -238,40 +238,22 @@ This repository is organized for reproducible analysis of non-state armed group 
 
 Additional top-level files include configuration, documentation, and project settings (`.gitignore`, `LICENSE.md`, `coding_rules.md`, `hypothesis_roadmap.md`, `nags_signaling.Rproj`, etc.).
 
-Example tree:
-
 ```bash
 nags_signaling/
 ├── R/
-│   ├── shared/
-│   │   ├── 00_packages.R
-│   │   ├── 01_load_data.R
-│   │   ├── 02_data_prep.R
-│   │   ├── 03_derive_signaling_vars.R
-│   │   ├── 04_trim_and_finalize.R
-│   │   ├── 06_helpers.R
-│   │   ├── 11_h8_h14_mechanism.R
-│   │   └── 12_reporting_tables.R
-│   ├── paper2/
-│   │   ├── 07_h1_h3_count.R
-│   │   ├── 08_h7_h8_alignment.R
-│   │   └── ...
-│   ├── paper3/
-│   │   ├── 09_h10_survival_dual.R
-│   │   ├── 10_h14_risk_opposition.R
-│   │   └── ...
+│   ├── shared/            # Common pipeline scripts
+│   ├── paper2/            # Ideological commitment signaling (Paper 2)
+│   ├── paper3/            # Opposition resolve signaling (Paper 3)
 │   └── models/
-│       └── paper2_resolve_baseline.R
+├── source_data/           # source data (gitignored)
 ├── data/                  # intermediate data (gitignored)
-│   └── GRAVE_D_Master_with_Leaders_nags_signals_trimmed.rds
 ├── results/               # all model outputs, tables, figures (gitignored)
 │   ├── 5000_bootstraps/   # heavy mediation results with 5000 bootstraps
 │   ├── models/            # stripped RDS versions of fitted models
 │   ├── plots/             # generated plots and figures
 │   └── tables/            # saved tables (csv, LaTeX, etc.)
-├── source_data/           # source data (gitignored)
-├── docs/                  # Final manuscript documents
-├── quarto/                # QMD files for producing Quarto manuscript
+├── quarto/                # QMD files for producing Quarto manuscripts
+├── docs/                  # final manuscript documents
 ├── README.md
 ├── nags_signaling.Rproj
 ├── .gitignore
