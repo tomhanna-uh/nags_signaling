@@ -270,7 +270,7 @@ nags_signaling/
 │   ├── plots/             # generated plots and figures
 │   └── tables/            # saved tables (csv, LaTeX, etc.)
 ├── source_data/           # source data (gitignored)
-├── docs/                  # Quarto manuscript sources
+├── docs/                  # Final manuscript documents
 ├── quarto/                # QMD files for producing Quarto manuscript
 ├── README.md
 ├── nags_signaling.Rproj
