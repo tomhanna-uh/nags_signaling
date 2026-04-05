@@ -1,0 +1,70 @@
+# Appendix 1: The GRAVE-D Dataset
+
+## Overview of GRAVE-D
+
+The **GRAVE-D** (Global Relations Alliances V Economic — Dyadic) dataset is a directed dyad-year panel covering 1946–2020. The unit of analysis is the behavior of a Sender (Country A) toward a Target (Country B) in a given year. It serves as the master dataset for this project and related work on authoritarian leadership politics, ideological signaling, and international conflict behavior.
+
+The 2026 update significantly expands GRAVE-D by incorporating **Non-State Armed Actors (NAGs)** as a core component. This addition enables direct analysis of support for foreign non-state armed groups (including training camps, arms, funds, and troops) as domestic signaling tools. The dataset integrates data from multiple sources into a unified, analysis-ready structure while preserving directed dyadic relationships.
+
+## Contributions of the GRAVE-D Pipeline
+
+The GRAVE-D dataset is not a simple merge of raw sources. It is the product of a deliberate, reproducible pipeline (`R/01_build_fbic_spine.R` through `R/06_impute_controls.R` and NAG-specific scripts) that makes the following key contributions:
+  
+  ### 1. Derived Variables
+  The pipeline creates numerous analytically useful variables that do not exist in the source data:
+  
+  - **Conflict and targeting indicators**: `mid_initiated` (binary), `targets_democracy` (binary, based on V-Dem liberal democracy threshold), and hostility-level measures from MID v4.0.
+- **Ideological and legitimation measures**: Composite revisionist ideology scores (`sidea_revisionist_domestic`, `revisionist_high`, `revisionist_norm`), legitimation ratios (`legit_ideol_ratio`, `legit_personalist_ratio`), and dynamic leadership proxy (`sidea_dynamic_leader`).
+- **Support group composition**: Measures of reliance on religious groups, party elites, rural/worker groups, military, and ethnic factions (drawn from V-Dem and related sources).
+- **NAG-specific variables** (new in 2026): `nags_any_support`, `nags_support_count`, `nags_training` (hosting training camps), `nags_arms`, `nags_funds`, `nags_troops`, plus ideology and objective match indicators (e.g., `nags_ideology_match`, `nags_nondem_objective`). These are derived from triadic state–rebel group–year data and transformed into dyad-year format.
+- **Connectivity and bandwidth**: FBIC-derived total and disaggregated bandwidth measures (economic, political, security, social).
+- **Composite indices**: Conflict potential index and revisionist potential scores.
+
+These derived variables enable direct testing of signaling mechanisms without repeated ad-hoc computation.
+
+### 2. Imputation of Missing Data and Combined Variables
+Missing data is handled systematically to maximize usable observations while preserving structural missingness:
+  
+  - Linear interpolation within country-year panels for time-series variables.
+- Regional-year median imputation for countries with limited coverage.
+- Targeted combination of variables (e.g., merging multiple legitimation or capability indicators into normalized or ratio forms).
+- Structural missingness is intentionally retained for variables such as certain leader-specific measures, alliance identifiers, or internet censorship indicators where imputation would be inappropriate.
+
+The result is a dataset with far fewer gaps than the raw sources, while all imputation decisions are documented and reproducible.
+
+### 3. Integration of Dyadic, Monadic, and Triadic Structures
+
+One of the central challenges addressed by GRAVE-D is the mismatch in data structures across sources:
+  
+  - **Dyadic backbone**: The dataset is built on an FBIC spine of directed dyad-years, ensuring consistent sender–target pairing (`COWcode_a` × `COWcode_b`).
+- **Monadic variables**: Leader ideology, regime characteristics (V-Dem), capabilities (CINC), and non-state conflict indicators (UCDP) are monadic (country-year) but are merged onto the dyadic structure for both Sender and Target sides.
+- **Triadic variables**: The Non-State Armed Groups (NAGs) data is originally triadic (state–rebel group–year). The pipeline transforms these into dyad-year indicators (e.g., presence and type of support from Sender A to groups active against Target B) while preserving key attributes such as group ideology, objectives, and support type. This triadic-to-dyadic conversion is a major contribution, enabling analysis of NAG support as a signaling tool without losing granularity.
+
+The pipeline handles varying index variables (country codes, years, group IDs) through consistent renaming, zero-filling where appropriate, and careful merging. The final output (`GRAVE_D_Master_with_Leaders_nags_signals_trimmed.rds` or `.csv`) is a clean, analysis-ready dyad-year panel that supports both monadic and dyadic modeling approaches.
+
+## Non-State Armed Actors (NAGs) Component
+
+The 2026 update integrates the Non-State Armed Groups Database as a core module. Triadic support data (state–group–year) is processed into dyad-year variables that capture:
+  
+  - Any support, active support, training camps, arms, funds, and troops.
+- Ideology and objective alignment (e.g., nationalist, religious, leftist; topple regime, secession, policy change).
+- Whether the supported group targets democracies or pursues autocratic goals.
+
+This addition transforms GRAVE-D from a general conflict dataset into a specialized tool for studying deniable conflict export and domestic signaling via NAGs.
+
+## Data Sources and Pipeline Transparency
+
+The dataset draws from high-quality public sources, including:
+  
+  - FBIC connectivity and bandwidth data
+- Militarized Interstate Disputes (MID) v4.0
+- V-Dem (Varieties of Democracy)
+- Archigos and Colgan leader datasets
+- UCDP non-state conflict data
+- Non-State Armed Groups Database
+
+All processing steps are scripted, version-controlled, and documented in the project repository. The final analytic sample used in this manuscript is produced by `04_trim_and_finalize.R`, which applies a whitelist of variables and aggressive cleaning to produce a lean, reproducible dataset.
+
+Full details on variable definitions, sources, and construction are available in the project codebook and source data documentation. Descriptive statistics and correlation plots for the analytic sample appear in the Data and Methods chapter.
+
+This infrastructure enables transparent, replicable analysis of how domestic political dynamics shape international behavior through support for foreign non-state armed groups.

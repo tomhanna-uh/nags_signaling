@@ -1,0 +1,207 @@
+---
+title: "Paper 3 Results: Opposition Resolve Signaling"
+bibliography:
+  - references.bib
+  - data_sources.bib
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+    fig-cap-location: top
+    tbl-cap-location: top
+  pdf:
+    documentclass: report
+    classoption: [a4paper, 12pt]
+    toc: true
+    number-sections: true
+    fig-cap-location: top
+    tbl-cap-location: top
+---
+
+```{r}
+#| label: setup-paper3
+#| include: false
+#| echo: false
+#| message: false
+#| warning: false
+#| cache: false
+library(here)
+here::i_am("quarto/paper3_results.qmd")
+setwd(here::here())
+library(knitr)
+options(knitr.kable.NA = "")
+library(tidyverse)
+library(gt)
+```
+
+## Opposition Resolve Signaling
+
+When facing larger or more organized domestic opposition, autocrats increase visible support for foreign non-state armed groups to signal resolve. This chapter presents the empirical tests for **H11–H16.**
+
+## 3.1 Opposition Size and Overall NAG Support (H11–H12)
+
+**H11:** Larger opposition increases the probability of any NAG support.
+
+**H12:** Larger opposition increases the count of supported NAGs (especially training camps).
+
+```{r}
+#| label: tbl-h11-h12
+#| tbl-cap: "H11–H12: Opposition Size and NAG Support"
+#| echo: false
+#| warning: false
+#| message: false
+
+h11_coefs <- read_csv(here("results/tables/paper2_h11_coefficients.csv"))
+h12_coefs <- read_csv(here("results/tables/paper2_h12_coefficients.csv"))
+
+h11_coefs |>
+  gt() |>
+  tab_header(title = "H11: Any NAG Support") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+
+h12_coefs |>
+  gt() |>
+  tab_header(title = "H12: NAG Support Count") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+```
+
+```{r}
+#| label: fig-h11-marginal
+#| echo: false
+#| fig-cap: "H11: Marginal Effect of Opposition Size on Predicted Probability of Any NAG Support"
+knitr::include_graphics(here("quarto/plots/paper2_h11_marginal_effects.png"))
+```
+```{r}
+#| label: fig-h12-marginal
+#| echo: false
+#| fig-cap: "H12: Marginal Effect of Opposition Size on Predicted NAG Support Count"
+knitr::include_graphics(here("quarto/plots/paper2_h12_marginal_effects.png"))
+```
+
+Larger domestic opposition significantly increases both the probability and count of NAG support, consistent with signaling resolve to deter opponents.
+
+## 3.2 Strategic Target Avoidance (H13–H14)
+
+**H13:** As opposition grows, autocrats reduce support for NAGs targeting democracies.
+
+**H14:** The avoidance effect is stronger when political bandwidth (visibility) is high.
+
+```{r}
+#| label: tbl-h13-h14
+#| tbl-cap: "H13–H14: Strategic Avoidance of Democracy-Targeting NAGs"
+#| echo: false
+#| warning: false
+#| message: false
+
+h13_coefs <- read_csv(here("results/tables/paper3_h13_coefficients.csv"))
+h14_coefs <- read_csv(here("results/tables/paper3_h14_coefficients.csv"))
+
+h13_coefs |>
+  gt() |>
+  tab_header(title = "H13: Opposition Size and Democracy Targeting") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+
+h14_coefs |>
+  gt() |>
+  tab_header(title = "H14: Interaction with Political Bandwidth") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+```
+
+```{r}
+#| label: fig-h13-marginal
+#| echo: false
+#| fig-cap: "H13: Marginal Effect of Opposition Size on Predicted Probability by Democracy Targeting"
+knitr::include_graphics(here("quarto/plots/paper3_h13_marginal_effects.png"))
+```
+
+
+```{r}
+#| label: fig-h14-marginal
+#| echo: false
+#| fig-cap: "H14: Marginal Effect of Opposition Size on Predicted Probability by Democracy Targeting (with Bandwidth Interaction)"
+knitr::include_graphics(here("quarto/plots/paper3_h14_marginal_effects.png"))
+```
+Autocrats increase overall NAG support as opposition grows, but strategically avoid backing groups that target democracies—especially when visibility (political bandwidth) is high—demonstrating bounded rationality.
+
+## 3.3 Survival Benefits and Dynamic Leadership (H15–H16)
+
+**H15:** Visible NAG support improves survival when opposition is high.
+**H16:** Dynamic leaders show different strategic patterns under high opposition.
+
+```{r}
+#| label: tbl-h15-h16
+#| tbl-cap: "H15–H16: Survival Benefits and Dynamic Leadership"
+#| echo: false
+#| warning: false
+#| message: false
+
+h15_coefs <- read_csv(here("results/tables/paper2_h15_coefficients.csv"))
+h16_coefs <- read_csv(here("results/tables/paper2_h16_coefficients.csv"))
+
+h15_coefs |>
+  gt() |>
+  tab_header(title = "H15: Visible NAG Support and Survival") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+
+h16_coefs |>
+  gt() |>
+  tab_header(title = "H16: Dynamic Leadership Interaction") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+```
+
+```{r}
+#| label: fig-h15-marginal
+#| echo: false
+#| fig-cap: "H15: Marginal Effect of Visible NAG Support on Predicted Survival Probability by Opposition Size"
+knitr::include_graphics(here("quarto/plots/paper2_h15_marginal_effects.png"))
+```
+
+```{r}
+#| label: fig-h16-marginal
+#| echo: false
+#| fig-cap: "H16: Marginal Effect of Dynamic Leadership and Opposition Size on Predicted NAG Support Count"
+knitr::include_graphics(here("quarto/plots/paper2_h16_marginal_effects.png"))
+```
+Visible NAG support improves leader survival under high opposition, but dynamic (Messianic) leaders show less strategic avoidance, consistent with the distinction between rational and charismatic mechanisms.
+
+## 3.4 Control-Function Tests of the Core Mechanism
+
+To address potential endogeneity in opposition size, two control-function logit models test the relationship between domestic opposition and hosting of training camps for foreign NAGs.
+
+```{r}
+#| label: tbl-h12-control-function
+#| tbl-cap: "Control-Function Logit Models of Hosting Training Camps"
+#| echo: false
+#| warning: false
+#| message: false
+
+cf_full <- read_csv(here("results/tables/05_opposition_signaling_coefficients.csv"))
+cf_no_dem <- read_csv(here("results/tables/05_opposition_signaling_no_demtarget_coefficients.csv"))
+
+cf_full |>
+  gt() |>
+  tab_header(title = "With Democracy Target Variable") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+
+cf_no_dem |>
+  gt() |>
+  tab_header(title = "Without Democracy Target Variable") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+```
+The control-function correction (opposition residuals) is highly significant in both specifications, confirming that larger domestic opposition increases the likelihood of hosting training camps—even after addressing endogeneity. The effect is negative when democracy targeting is included persists whether or not the model includes democracy targeting, supporting the strategic resolve-signaling mechanism in H12 and H13.
+
+## Robustness and Appendix
+
+All robustness checks, full coefficient tables, and additional plots for Paper 3 are in Appendix 2 and Appendix 3.
+This completes the empirical tests for Paper 3. Together with Paper 2, the results show that the same observable behavior—support for foreign non-state armed groups—serves dual domestic audiences: signaling commitment to core supporters and resolve to opponents, within rational bounds.
+
+

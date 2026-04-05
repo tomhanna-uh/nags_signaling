@@ -1,25 +1,325 @@
 ---
-title: "Untitled"
-format: html
+title: "Paper 2 Results: Ideological Commitment Signaling"
+bibliography: 
+  - references.bib
+  - data_sources.bib
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+    fig-cap-location: top
+    tbl-cap-location: top
+  pdf:
+    documentclass: report
+    classoption: [a4paper, 12pt]
+    toc: true
+    number-sections: true
+    fig-cap-location: top
+    tbl-cap-location: top
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
 ```{r}
-1 + 1
-```
-
-You can add options to executable code like this 
-
-```{r}
+#| label: setup-paper2
+#| include: false
 #| echo: false
-2 * 2
+#| message: false
+#| warning: false
+#| cache: false
+
+library(here)
+here::i_am("quarto/paper2_results.qmd")
+# Force correct project root for RStudio Render button
+setwd(here::here())
+
+library(knitr)
+options(knitr.kable.NA = "")
+library(tidyverse)
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+  
+## Ideological Commitment Signaling
+  
+  Autocratic leaders use visible support for foreign non-state armed groups as a costly signal of ideological commitment to their core domestic support coalitions. This chapter presents the empirical tests for **H1–H10**. 
+
+## 2.1 Baseline Effects of Revisionist Ideology and Support Coalitions (H1–H2)
+
+**H1**: Revisionist leaders are more likely to provide any support to foreign NAGs.  
+**H2**: Higher revisionist support in the domestic coalition increases the count of supported NAGs.
+
+```{r}
+#| label: tbl-h1-h2
+#| tbl-cap: "H1–H2: Revisionist Ideology and Support Coalitions on NAG Support"
+#| echo: false
+#| warning: false
+#| message: false
+
+library(readr)
+library(here)
+library(gt)
+
+h1_coefs <- read_csv(here("results/tables/paper2_h1_coefficients.csv"))
+h2_coefs <- read_csv(here("results/tables/paper2_h2_coefficients.csv"))
+
+# Display nicely
+h1_coefs |> 
+  gt() |> 
+  tab_header(title = "H1: Any Support (Logit)") |>
+  fmt_number(columns = where(is.numeric), decimals = 3)
+
+h2_coefs |> 
+  gt() |> 
+  tab_header(title = "H2: Support Count (NB)") |>
+  fmt_number(columns = where(is.numeric), decimals = 3)
+```
+  
+```{r}
+#| label: fig-h1-predicted
+#| echo: false
+#| fig-cap: "H1: Predicted Probability of Any NAG Support by Revisionist Leader (High vs Low)"
+
+knitr::include_graphics(here("quarto/plots/paper2_h1_marginal_effects.png"))
+```
+  
+```{r}
+#| label: fig-h2-predicted
+#| echo: false
+#| fig-cap: "H2: Predicted NAG Support Count by Revisionist Support Level"
+
+knitr::include_graphics(here("quarto/plots/paper2_h2_marginal_effects.png"))
+```
+  
+  The results show strong support for both H1 and H2. Revisionist leadership ideology and revisionist domestic support coalitions significantly increase NAG support.
+
+## 2.2 Ideological Alignment and Target Selection (H4–H6)
+
+**H4**: Higher revisionist legitimation increases ideological match with supported NAGs.  
+**H5**: Revisionist leaders provide more support to NAGs with non-democratic objectives.  
+**H6**: Revisionist leaders provide more support to NAGs targeting democracies.
+
+
+```{r}
+#| label: tbl-h4-h6
+#| tbl-cap: "H4–H6: Ideological Alignment and Target Selection"
+#| echo: false
+#| warning: false
+#| message: false
+
+library(readr)
+library(here)
+library(gt)
+library(dplyr)
+
+# Load the saved coefficient tables
+h4_coefs <- read_csv(here("results/tables/paper2_h4_baseline_coefficients.csv"))
+h5_coefs <- read_csv(here("results/tables/paper2_h5_coefficients.csv"))
+h6_coefs <- read_csv(here("results/tables/paper2_h6_coefficients.csv"))
+
+# Display H4
+h4_coefs |>
+  gt() |>
+  tab_header(title = "H4: Ideology Match (Quasipoisson)") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+
+# Display H5
+h5_coefs |>
+  gt() |>
+  tab_header(title = "H5: Non-Democratic Objectives (Negative Binomial)") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+
+# Display H6
+h6_coefs |>
+  gt() |>
+  tab_header(title = "H6: Targets Democracy (Negative Binomial)") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+```
+
+
+  
+```{r}
+#| label: fig-h4-marginal
+#| echo: false
+#| fig-cap: "H4: Predicted Ideology Match by Revisionist Legitimation Level"
+
+knitr::include_graphics(here("quarto/plots/paper2_h4_marginal_effects_full.png"))
+```
+  
+```{r}
+#| label: fig-h5-marginal
+#| echo: false
+#| fig-cap: "H5: Predicted Support Count by Revisionist Leader and NAG Non-Dem Objective"
+
+knitr::include_graphics(here("quarto/plots/paper2_h5_marginal_effects.png"))
+```
+  
+```{r}
+#| label: fig-h6-marginal
+#| echo: false
+#| fig-cap: "H6: Predicted Support Count by Revisionist Leader and Democracy Targeting"
+
+knitr::include_graphics(here("quarto/plots/paper2_h6_marginal_effects.png"))
+```
+  
+  These findings confirm that revisionist autocrats preferentially support ideologically aligned NAGs and those pursuing autocratic goals or targeting democracies—consistent with costly signaling to core supporters.
+
+## 2.3 Legitimation Mix and Messianic Test (H7–H8)
+
+**H7**: Ideological legitimation dependence (vs. personalist) drives NAG support (Rational Autocrat).  
+**H8**: Dynamic leadership amplifies revisionist effects (Messianic test).
+
+
+```{r}
+#| label: tbl-h7
+#| echo: false
+#| tbl-cap: "H7: Ideological vs. Personalist Legitimation Ratios"
+#| warning: false
+#| message: false
+
+library(readr)
+library(here)
+library(gt)
+library(dplyr)
+
+# Load the saved coefficient table for H7
+h7_coefs <- read_csv(here("results/tables/paper2_h7_coefficients.csv"))
+
+# Display with gt for clean formatting
+h7_coefs |>
+  gt() |>
+  tab_header(title = "H7: Ideological vs. Personalist Legitimation Ratios on NAG Support") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small") |>
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels()
+  )
+```
+  
+```{r}
+#| label: fig-h7-ideol
+#| echo: false
+#| fig-cap: "H7: Predicted NAG Support Count by Ideological Legitimation Ratio"
+
+knitr::include_graphics(here("quarto/plots/paper2_h7_marginal_effects_ideol.png"))
+```
+  
+```{r}
+#| label: fig-h7-pers
+#| echo: false
+#| fig-cap: "H7: Predicted NAG Support Count by Personalist Legitimation Ratio"
+
+knitr::include_graphics(here("quarto/plots/paper2_h7_marginal_effects_personalist.png"))
+```
+  
+```{r}
+#| label: fig-h8
+#| echo: false
+#| fig-cap: "H8: Dynamic Leaders Amplify Revisionist Effects on NAG Support"
+
+knitr::include_graphics(here("quarto/plots/paper2_h8_marginal_effects.png"))
+```
+  
+  The ideological ratio strongly predicts support while the personalist ratio shows weaker or null effects—supporting the Rational Autocrat mechanism over the Messianic alternative. Dynamic leadership provides some amplification but is secondary.
+
+## 2.4 Mediation  (H9)
+
+**H9**: Revisionist ideology operates through support group composition.  
+
+
+```{r}
+#| label: tbl-h9-mediation
+#| echo: false
+#| tbl-cap: "H9: Mediation Analysis - Revisionist Ideology → Support Groups → NAG Support"
+#| warning: false
+#| message: false
+
+library(readr)
+library(here)
+library(gt)
+library(dplyr)
+
+# Load the lavaan mediation parameter estimates
+h9_mediation <- read_csv(here("results/5000_bootstrap/h9_lavaan_mediation_estimates_5000.csv"))
+
+# Display the most important rows (indirect effects and total effect)
+h9_mediation |>
+  filter(lhs %in% c("indirect_religious", "indirect_party", "total_indirect", "total_effect") |
+         label %in% c("indirect_religious", "indirect_party", "total_indirect", "total_effect")) |>
+  select(Parameter = label, Estimate = est, `Std. Error` = se, Z = z, 
+         `P Value` = pvalue, `CI Lower` = ci.lower, `CI Upper` = ci.upper) |>
+  gt() |>
+  tab_header(title = "H9: Key Mediation Effects (Bootstrapped)") |>
+  fmt_number(columns = c(Estimate, `Std. Error`, Z, `CI Lower`, `CI Upper`), decimals = 4) |>
+  fmt_number(columns = `P Value`, decimals = 4) |>
+  tab_options(table.font.size = "small") |>
+  tab_style(style = cell_text(weight = "bold"), locations = cells_column_labels())
+```
+
+```{r}
+#| label: fig-h9-path
+#| echo: false
+#| fig-cap: "H9: Path Diagram of Mediation - Revisionist Ideology → Support Groups → NAG Support. Green arrows show standardized path coefficients. Revisionist Ideology (Rvl) positively affects both Religious Support (RIS) and Party-Elite Support (PES), which in turn positively affect the count of supported Non-State Armed Groups (n__). The indirect effects through both mediators are statistically significant, supporting the mechanism that revisionist leaders increase NAG support by strengthening ideological support groups."
+knitr::include_graphics(here("quarto/plots/h9_path_diagram.png"))
+```
+
+The mediation analysis shows that revisionist ideology influences NAG support primarily through its effect on the size and composition of ideological support groups (religious and party-elite support). The indirect effects are statistically significant, supporting the Rational Autocrat signaling mechanism.
+
+
+
+**H10**: Aligned NAG support improves leader survival.
+
+```{r}
+#| label: tbl-h10-coefs
+#| echo: false
+#| tbl-cap: "H10: NAG Support and Leader Survival Models"
+#| warning: false
+#| message: false
+
+library(readr)
+library(here)
+library(gt)
+library(dplyr)
+
+h10_coefs <- read_csv(here("results/tables/paper2_h10_coefficients.csv"))
+
+h10_coefs |>
+  gt() |>
+  tab_header(title = "H10: Aligned NAG Support on Leader Survival (Logit and Negative Binomial)") |>
+  fmt_number(columns = where(is.numeric), decimals = 3) |>
+  tab_options(table.font.size = "small")
+```
+
+```{r}
+#| label: tbl-h10-predicted
+#| echo: false
+#| tbl-cap: "H10: Predicted Probabilities by Dynamic Leader Quality"
+#| warning: false
+#| message: false
+
+h10_pred <- read_csv(here("results/tables/paper2_h10_predicted_probabilities.csv"))
+
+h10_pred |>
+  gt() |>
+  tab_header(title = "H10: Predicted Probability of Leader Survival") |>
+  fmt_number(columns = where(is.numeric), decimals = 4) |>
+  tab_options(table.font.size = "small")
+```
+
+```{r}
+#| label: fig-h10-survival
+#| echo: false
+#| fig-cap: "H10: Predicted Leader Survival by Aligned NAG Support"
+knitr::include_graphics(here("quarto/plots/h10_survival_curve_aligned.png"))
+```
+
+
+Aligned NAG support significantly extends leader tenure, particularly in the consolidation period, confirming the domestic survival benefit of ideological signaling. Full mediation results (H9) and additional robustness are presented in Appendix 2.
+
+## Robustness and Appendix
+
+All robustness checks (alternative estimators, subsamples, additional controls, clustered standard errors) appear in **Appendix 2**. Full coefficient tables, additional plots, and mediation path diagrams are in **Appendix 2** and **Appendix 3**.
+
+This completes the empirical tests for Paper 2. The results demonstrate that autocrats use NAG support as a rational, costly signal of ideological commitment to core domestic coalitions, yielding measurable survival benefits.

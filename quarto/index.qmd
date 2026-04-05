@@ -15,7 +15,7 @@ format:
     fig-cap-location: top
     tbl-cap-location: top
   pdf:
-    documentclass: article
+    documentclass: report
     classoption: [a4paper, 12pt]
     toc: true
     number-sections: true
@@ -59,6 +59,4 @@ This work is part of a larger research program on authoritarian leadership polit
 # Any global setup needed for the index page (rarely required)
 library(knitr)
 library(tidyverse)
-```
-
 ```

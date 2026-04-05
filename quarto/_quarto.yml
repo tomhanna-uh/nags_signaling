@@ -19,7 +19,7 @@ format:
     fig-cap-location: top
     tbl-cap-location: top
   pdf:
-    documentclass: article
+    documentclass: report
     classoption: [a4paper, 12pt]
     toc: true
     number-sections: true
@@ -32,8 +32,10 @@ book:
     - introduction.qmd
     - theory.qmd
     - data_methods.qmd
-    # - paper2_results.qmd
-    # - paper3_results.qmd
-    # - conclusion.qmd
-    # - appendix.qmd
-    # - references.qmd
+    - paper2_results.qmd
+    - paper3_results.qmd
+    - conclusion.qmd
+    - references.qmd
+    - appendix.qmd
+    - appendix2.qmd
+    - appendix3.qmd

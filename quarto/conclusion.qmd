@@ -1,0 +1,79 @@
+---
+title: "Conclusion"
+bibliography:
+  - references.bib
+  - data_sources.bib
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+    fig-cap-location: top
+    tbl-cap-location: top
+  pdf:
+    documentclass: report
+    classoption: [a4paper, 12pt]
+    toc: true
+    number-sections: true
+    fig-cap-location: top
+    tbl-cap-location: top
+---
+
+```{r}
+#| label: setup-conclusion
+#| include: false
+#| echo: false
+#| message: false
+#| warning: false
+#| cache: false
+library(here)
+here::i_am("quarto/conclusion.qmd")
+setwd(here::here())
+library(knitr)
+options(knitr.kable.NA = "")
+library(tidyverse)
+```
+
+# Conclusion
+
+Autocratic leaders routinely provide visible support to foreign non-state armed groups (NAGs) despite significant risks of international retaliation. The two papers in this manuscript demonstrate that this behavior serves dual domestic purposes: signaling ideological commitment to core support coalitions and signaling resolve to domestic opponents.
+
+## Summary of Findings
+
+**Paper 2: Ideological Commitment Signaling** shows that revisionist autocrats use NAG support as a costly, non-material payoff to their ideological backers. Revisionist leadership ideology and higher revisionist support in domestic coalitions strongly increase both the probability and count of supported NAGs (H1–H2). Leaders preferentially back ideologically aligned groups and those pursuing autocratic goals or targeting democracies (H4–H6). The effect operates primarily through ideological legitimation dependence rather than personalist rule (H7), with dynamic leadership providing only modest amplification (H8). Mediation analysis confirms that revisionist ideology works through strengthening religious and party-elite support groups (H9), and aligned NAG support measurably improves leader survival (H10).
+
+**Paper 3: Opposition Resolve Signaling** demonstrates that larger domestic opposition prompts increased visible NAG support, especially hosting of training camps (H11–H12). However, leaders exercise strategic restraint: as opposition grows they reduce support for groups that target democracies, particularly when political bandwidth (visibility) is high (H13–H14). Visible NAG support improves leader survival under high opposition (H15), while dynamic leaders show somewhat less restraint (H16). Control-function models addressing endogeneity in opposition size confirm the core mechanism linking larger opposition to greater likelihood of hosting training camps.
+
+Together, the results support the **Rational Autocrat** mechanism over the **Messianic Autocrat** alternative. Leaders act as utility maximizers who convert risky international behavior into domestic political capital. They balance credibility gains from signaling against external costs of retaliation, producing observable strategic restraint (e.g., selective avoidance of democracy-targeting NAGs when opposition is large and visibility is high).
+
+## Comparison of the Two Mechanisms
+
+The same observable action—visible NAG support—serves distinct audiences with overlapping but not identical logics:
+
+- **To core supporters** (Paper 2): NAG support functions as an ideological consistency signal and non-material payoff. The effect is strongest among revisionist coalitions and operates through legitimation strategies.
+- **To domestic opponents** (Paper 3): NAG support functions as a resolve signal, particularly through hosting training camps on home soil. Leaders display bounded rationality by avoiding high-risk targets when international backlash is more likely.
+
+Dynamic (charismatic) leadership amplifies overall support levels in both contexts but does not eliminate strategic calculations. The Rational Autocrat framework thus provides a unified explanation: autocrats deploy deniable conflict export as an efficient tool for managing coalition maintenance and opposition threats under resource and legitimacy constraints.
+
+These findings extend the earlier project on militarized interstate disputes as ideological signals. Where that work focused on direct conflict initiation, the current papers shift attention to lower-intensity, more deniable forms of conflict export. Together they illustrate a broader pattern: rational autocrats treat international behavior as a versatile instrument for domestic audience management.
+
+## Implications
+
+For **autocratic foreign policy**, the results suggest that support for foreign NAGs is not merely a byproduct of weak-state proxy warfare or great-power competition. It is often a deliberate domestic strategy. Observers should therefore interpret such behavior through the lens of the leader’s domestic coalition and opposition environment rather than solely through international strategic logic.
+
+For **regime stability**, visible NAG support appears to function as a low-cost substitute for material redistribution. By strengthening ideological legitimation and deterring opponents, it can extend leader tenure without exhausting scarce resources. However, the strategy carries risks: miscalibrated signals can provoke international retaliation that undermines the very stability leaders seek to protect.
+
+For the **comparative politics and international relations literatures**, the project bridges domestic audience theories with conflict studies. It shows how low-intensity international actions can serve high-stakes domestic purposes and highlights the value of distinguishing Rational from Messianic mechanisms in authoritarian decision-making.
+
+## Directions for Future Research
+
+Several avenues warrant further exploration:
+
+- Extending the analysis to democratic targets or hybrid regimes to test boundary conditions of the signaling logic.
+- Incorporating finer-grained measures of NAG ideology and support intensity to better capture alignment and costliness.
+- Examining how international audiences (e.g., great powers or international organizations) respond to these signals and whether such responses feed back into domestic calculations.
+- Investigating temporal dynamics: how leaders adjust NAG support strategies across different phases of their tenure or in response to changing opposition strength.
+
+The data infrastructure developed for this project (GRAVE-D augmented with Non-State Armed Groups data) provides a strong foundation for these extensions. All scripts and results are available in the project repository for replication and further analysis.
+
+In sum, autocratic leaders use support for foreign non-state armed groups as a versatile, dual-audience signal. By doing so, they convert international risk into domestic political advantage—illustrating the enduring importance of two-level politics even in the realm of seemingly “foreign” conflict behavior.

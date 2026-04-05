@@ -1,0 +1,53 @@
+---
+title: "References"
+bibliography:
+  - references.bib
+  - data_sources.bib
+nocite: '@*'
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+  pdf:
+    documentclass: report
+    classoption: [a4paper, 12pt]
+    toc: true
+    number-sections: true
+---
+
+# References
+
+This bibliography combines two files:
+
+- `references.bib` — contains scholarly references cited in the introduction, theory, data/methods, results chapters, and conclusion.
+- `data_sources.bib` — contains citations for the datasets and data sources used throughout the project (GRAVE-D, V-Dem, Non-State Armed Groups Database, etc.).
+
+All citations follow the project’s BibTeX entries. The full list is generated automatically by Quarto from the two `.bib` files listed in the YAML header.
+
+## Data Sources
+
+The empirical analyses rely on the following primary data sources:
+
+- GRAVE-D dataset (augmented with leader and regime characteristics)
+  
+    - Various Correlates of War datasets listed below
+    - Non-State Armed Groups Database
+    - Various V-Dem (Varieties of Democracy) projects' variables for legitimation strategies, opposition strength, and ideological dependence
+    - Derived variables described in the appendices
+    - Several other datasets listed below
+
+Detailed variable construction and descriptive statistics appear in the Data and Methods chapte and Appendices.
+
+## Scholarly References
+
+All theoretical and empirical claims are supported by the scholarly literature listed in `references.bib`. Key works on authoritarian signaling, two-level games, legitimation strategies, and non-state armed groups are included.
+
+For the complete, alphabetized list of all references and data sources, please consult the rendered PDF or HTML version of this document (Quarto automatically generates the full bibliography from the combined `.bib` files).
+
+```{r}
+#| label: render-full-references
+#| echo: false
+#| results: asis
+cat("::: {#refs}\n:::\n")
+```

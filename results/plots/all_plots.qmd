@@ -1,0 +1,39 @@
+---
+title: "All Plots - Paper 2 (Ideological Commitment Signaling)"
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+    self-contained: true
+  pdf:
+    documentclass: article
+    classoption: [a4paper, 12pt]
+    toc: true
+    number-sections: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(here)
+here::i_am("results/plots/all_plots.qmd")
+setwd(here::here())
+```
+
+---
+title: "Image Gallery"
+format: html
+---
+
+```{r}
+#| echo: false
+#| message: false
+
+# 1. List all PNG files in the current folder (or specify a subfolder like "images/")
+img_files <- list.files(pattern = "*.png", full.names = TRUE)
+
+# 2. Display them all at once
+knitr::include_graphics(img_files)
+```

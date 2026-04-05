@@ -1,5 +1,22 @@
 ---
 title: "Theory"
+bibliography: 
+  - references.bib
+  - data_sources.bib
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+    fig-cap-location: top
+    tbl-cap-location: top
+  pdf:
+    documentclass: report
+    classoption: [a4paper, 12pt]
+    toc: true
+    number-sections: true
+    fig-cap-location: top
+    tbl-cap-location: top
 ---
 
 Autocratic leaders routinely support foreign non-state armed groups (NAGs) at considerable risk. They host training camps on their own territory, supply weapons and funds, and provide diplomatic cover — actions that invite sanctions, military retaliation, and reputational damage. Standard strategic accounts treat these behaviors as low-cost proxies for weak states or as extensions of great-power rivalry. Yet many cases involve visible, costly support with limited material payoff and clear alternatives through negotiation. The persistence of this behavior suggests a second, domestic audience.

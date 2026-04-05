@@ -1,0 +1,44 @@
+---
+title: "Appendix 2: All Tables - Paper 2 (Ideological Commitment Signaling)"
+format:
+  html:
+    toc: true
+    number-sections: true
+    theme: cosmo
+  pdf:
+    documentclass: report
+    classoption: [a4paper, 12pt]
+    toc: true
+    number-sections: true
+    fig-cap-location: top
+    tbl-cap-location: top
+---
+
+```{r}
+#| label: setup-appendix2
+#| include: false
+
+library(here)
+here::i_am("quarto/appendix2.qmd")
+setwd(here::here())
+
+library(knitr)
+options(knitr.kable.NA = "")
+```
+```{r}
+#| label: all-tables
+#| echo: false
+#| results: asis
+
+table_files <- list.files(here("results/tables"), pattern = "\\.csv$", full.names = TRUE)
+
+for (f in sort(table_files)) {
+  basename <- basename(f)
+  cat("###", basename, "\n\n")
+  
+  tbl <- read.csv(f)
+  print(kable(tbl, digits = 3, booktabs = TRUE))
+  
+  cat("\n\n")
+}
+```

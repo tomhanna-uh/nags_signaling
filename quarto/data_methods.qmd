@@ -11,7 +11,7 @@ format:
     fig-cap-location: top
     tbl-cap-location: top
   pdf:
-    documentclass: article
+    documentclass: report
     classoption: [a4paper, 12pt]
     toc: true
     number-sections: true
